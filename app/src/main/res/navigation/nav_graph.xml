@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inicioFragment">
+
+    <fragment
+        android:id="@+id/inicioFragment"
+        android:name="com.janus.aprendiendoacontar.menu.InicioFragment"
+        android:label="fragment_inicio"
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_inicioFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:enterAnim="@anim/fade_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.janus.aprendiendoacontar.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment"
+            app:enterAnim="@anim/fade_in"
+            app:popUpTo="@id/inicioFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_menuFragment_to_conoceFragment"
+            app:destination="@id/conoceFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_menuFragment_to_cuantosFragment"
+            app:destination="@id/cuantosFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_menuFragment_to_arrastraFragment"
+            app:destination="@id/arrastraFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_menuFragment_to_ordenaFragment"
+            app:destination="@id/ordenaFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/conoceFragment"
+        android:name="com.janus.aprendiendoacontar.juego.ConoceFragment"
+        android:label="fragment_conoce"
+        tools:layout="@layout/fragment_conoce" >
+        <action
+            android:id="@+id/action_conoceFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_conoceFragment_self"
+            app:destination="@id/conoceFragment" />
+        <argument
+            android:name="numero"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        android:id="@+id/cuantosFragment"
+        android:name="com.janus.aprendiendoacontar.juego.CuantosFragment"
+        android:label="fragment_cuantos"
+        tools:layout="@layout/fragment_cuantos" >
+        <action
+            android:id="@+id/action_cuantosFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/arrastraFragment"
+        android:name="com.janus.aprendiendoacontar.juego.ArrastraFragment"
+        android:label="fragment_arrastra"
+        tools:layout="@layout/fragment_arrastra" >
+        <action
+            android:id="@+id/action_arrastraFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordenaFragment"
+        android:name="com.janus.aprendiendoacontar.juego.OrdenaFragment"
+        android:label="fragment_ordena"
+        tools:layout="@layout/fragment_ordena" >
+        <action
+            android:id="@+id/action_ordenaFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

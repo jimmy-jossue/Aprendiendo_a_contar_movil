@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    tools:context=".menu.MenuFragment">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_sea_blur"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/btnSalir"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/ic_salir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnPerfil"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/bg_btn_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnConoce"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_132sdp"
+        android:background="@drawable/btn_menu_conoce"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCuantos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6"/>
+
+    <ImageButton
+        android:id="@+id/btnCuantos"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_132sdp"
+        android:background="@drawable/btn_menu_cuantos_lock"
+        app:layout_constraintBottom_toBottomOf="@+id/btnConoce"
+        app:layout_constraintEnd_toStartOf="@+id/btnArrastra"
+        app:layout_constraintStart_toEndOf="@+id/btnConoce"
+        app:layout_constraintTop_toTopOf="@+id/btnConoce" />
+
+    <ImageButton
+        android:id="@+id/btnArrastra"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_132sdp"
+        android:background="@drawable/btn_menu_arrastra_lock"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOrdena"
+        app:layout_constraintEnd_toStartOf="@+id/btnOrdena"
+        app:layout_constraintStart_toEndOf="@+id/btnCuantos"
+        app:layout_constraintTop_toTopOf="@+id/btnOrdena" />
+
+    <ImageButton
+        android:id="@+id/btnOrdena"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_132sdp"
+        android:background="@drawable/btn_menu_ordena_lock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnArrastra"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/_8sdp"
+        app:layout_constraintVertical_bias="0.6"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

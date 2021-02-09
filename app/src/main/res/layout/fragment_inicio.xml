@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".menu.InicioFragment">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_sea"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivTitle"
+        android:layout_width="@dimen/_400sdp"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_margin="65dp"
+        android:src="@drawable/titulo_inicio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0." />
+
+    <ImageButton
+        android:id="@+id/btnJugar"
+        android:layout_width="@dimen/_105sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:background="@drawable/ic_btn_jugar"
+        app:layout_constraintEnd_toEndOf="@+id/ivTitle"
+        app:layout_constraintStart_toStartOf="@+id/ivTitle"
+        app:layout_constraintTop_toBottomOf="@+id/ivTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
