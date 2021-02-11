@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_400sdp"
+    android:layout_height="@dimen/_250sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFCC4D">
+
+    <ImageView
+        android:id="@+id/img_perfil_elegida"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintBottom_toTopOf="@+id/et_nom_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"></ImageView>
+
+    <EditText
+        android:id="@+id/et_nom_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginBottom="132dp"
+        android:inputType="text"
+        android:text="Toñita"
+        app:layout_constraintBottom_toBottomOf="@id/btn_perfil_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"></EditText>
+
+    <ImageButton
+        android:id="@+id/btn_perfil_one"
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/perfil_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCuantos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnArrastra"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_two"
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/perfil_two"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_perfil_one"
+        app:layout_constraintTop_toBottomOf="@+id/et_nom_usuario"
+        app:layout_constraintVertical_bias="0.235" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_three"
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginEnd="12dp"
+
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/perfil_three"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_perfil_four"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toEndOf="@+id/btn_perfil_two" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_four"
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/perfil_four"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_nom_usuario"
+        app:layout_constraintVertical_bias="0.772" />
+
+    <ImageButton
+        android:id="@+id/btn_list"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ic_btn_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_perfil_two">
+        app:layout_constraintBottom_toBottomOf="parent"
+    </ImageButton>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
