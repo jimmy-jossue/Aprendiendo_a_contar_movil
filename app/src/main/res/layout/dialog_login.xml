@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_300sdp"
+    android:layout_height="@dimen/_300sdp"
+    android:background="@drawable/bg_dialog">
+
+    <ImageView
+        android:id="@+id/img_perfil_elegida"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:src="@drawable/ic_perfil_vacio"
+        app:layout_constraintBottom_toTopOf="@+id/et_nom_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_nom_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_55sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:inputType="text"
+        android:background="@drawable/bg_edit_text"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:singleLine="true"
+        android:text="Nombre"
+        android:textSize="@dimen/_17ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_perfil_elegida" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_one"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/ic_perfil_one"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_perfil_two"
+        app:layout_constraintEnd_toStartOf="@id/btn_perfil_two"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_perfil_two" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_two"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/ic_perfil_two"
+        app:layout_constraintBottom_toTopOf="@+id/btn_list"
+        app:layout_constraintEnd_toStartOf="@id/btn_perfil_three"
+        app:layout_constraintStart_toEndOf="@+id/btn_perfil_one"
+        app:layout_constraintTop_toBottomOf="@+id/et_nom_usuario" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_three"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:src="@drawable/ic_perfil_three"
+        app:layout_constraintBottom_toTopOf="@+id/btn_list"
+        app:layout_constraintEnd_toStartOf="@+id/btn_perfil_four"
+        app:layout_constraintStart_toEndOf="@+id/btn_perfil_two"
+        app:layout_constraintTop_toBottomOf="@+id/et_nom_usuario" />
+
+    <ImageButton
+        android:id="@+id/btn_perfil_four"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/ic_perfil_four"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_perfil_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_perfil_three"
+        app:layout_constraintTop_toTopOf="@+id/btn_perfil_three" />
+
+    <ImageButton
+        android:id="@+id/btn_list"
+        android:layout_width="@dimen/_88sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:background="@drawable/ic_btn_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--        app:layout_constraintTop_toBottomOf="parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

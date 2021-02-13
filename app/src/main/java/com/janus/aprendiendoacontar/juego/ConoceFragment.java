@@ -1,22 +1,19 @@
 package com.janus.aprendiendoacontar.juego;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.R;
-import com.janus.aprendiendoacontar.Utilities.UIAnimation;
 
 public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
@@ -50,7 +47,6 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         }
 
 //        UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad);
-//        UIAnimation.translateIn_RightToLeft(requireContext(), btnAtras);
     }
 
     @Override
@@ -65,29 +61,27 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
                 } else if (firstTouchX < event.getX()) { //MENOR
                     numeroAnterior();
-//                    Toast.makeText(requireContext(), "hacia la DERECHA", Toast.LENGTH_SHORT).show();
-//                    ConoceFragmentDirections.ActionConoceFragmentSelf acccion = ConoceFragmentDirections.actionConoceFragmentSelf();
-//                    acccion.setNumero(--ConoceNumeros.numero);
-//                    Navigation.findNavController(requireView()).navigate(acccion);
-
                 }
                 break;
         }
         return true;
     }
 
-    private void numeroAnterior(){
-        if (numero > 1){
-            numero--;
-            Navigation.findNavController(requireView()).popBackStack();
+    private void numeroAnterior() {
+        if (numero > 1) {
+//            numero--;
+//            Navigation.findNavController(requireView()).popBackStack();
+            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
+            accion.setNumero(--numero);
+            Navigation.findNavController(requireView()).navigate(accion);
         }
     }
 
-    private void numeroSiguiente(){
-        if (numero < 20){
-            ConoceFragmentDirections.ActionConoceFragmentSelf acccion = ConoceFragmentDirections.actionConoceFragmentSelf();
-            acccion.setNumero(++numero);
-            Navigation.findNavController(requireView()).navigate(acccion);
+    private void numeroSiguiente() {
+        if (numero < 20) {
+            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
+            accion.setNumero(++numero);
+            Navigation.findNavController(requireView()).navigate(accion);
         }
     }
 

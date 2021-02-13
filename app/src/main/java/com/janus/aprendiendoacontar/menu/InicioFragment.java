@@ -1,12 +1,6 @@
 package com.janus.aprendiendoacontar.menu;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.janus.aprendiendoacontar.R;
-import com.janus.aprendiendoacontar.Utilities.UIAnimation;
 
 public class InicioFragment extends Fragment {
 
@@ -39,17 +37,9 @@ public class InicioFragment extends Fragment {
         btnJugar = view.findViewById(R.id.btnJugar);
         ivTitle = view.findViewById(R.id.ivTitle);
 
-//        ivTitle.animate().alpha(1).setDuration(1000).setStartDelay(500);
-//        btnJugar.animate().alpha(1).setDuration(1000).setStartDelay(500);
-
-        UIAnimation.onInfiniteScale(requireContext(), btnJugar);
-
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                UIAnimation.onScaleZoomIn(requireContext(), btnJugar);
-                ivTitle.animate().translationY(-1000).setDuration(600).setStartDelay(100);
-                btnJugar.animate().translationY(-1000).setDuration(700).setStartDelay(200);
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {

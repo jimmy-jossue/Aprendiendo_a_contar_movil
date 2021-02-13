@@ -31,11 +31,10 @@ android {
 }
 
 dependencies {
-
-    def nav_version = "2.3.2"
+    def nav_version = "2.3.3"
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.1'
@@ -48,4 +47,5 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     //unit of measure ssp
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
 }
