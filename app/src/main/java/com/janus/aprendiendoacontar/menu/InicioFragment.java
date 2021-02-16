@@ -1,7 +1,6 @@
 package com.janus.aprendiendoacontar.menu;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +39,7 @@ public class InicioFragment extends Fragment {
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Navigation.findNavController(v).navigate(R.id.action_inicioFragment_to_menuFragment);
-                    }
-                }, 1600);
-
+                Navigation.findNavController(v).navigate(R.id.action_inicioFragment_to_menuFragment);
             }
         });
 

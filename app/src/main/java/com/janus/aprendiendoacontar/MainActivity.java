@@ -1,19 +1,34 @@
 package com.janus.aprendiendoacontar;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
+import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
+
+public class MainActivity extends AppCompatActivity implements PerfilDialog.ActionDialogListener {
     private boolean registrado = false;
+    private Perfil perfilUsuario;
+
+    public Perfil getPerfilUsuario() {
+        return perfilUsuario;
+    }
+
+    public void setPerfilUsuario(Perfil perfilUsuario) {
+        this.perfilUsuario = perfilUsuario;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        perfilUsuario = new Perfil();
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (registrado) {
             //no mostrar el alertDialog
@@ -23,11 +38,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        alert.setView(inflater.inflate(R.layout.dialog_login, null));
-        alert.setCancelable(false);
-        final AlertDialog dialog = alert.create();
-        dialog.show();
+        DialogFragment dialog = new PerfilDialog();
+        dialog.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void onPositiveClick(PerfilDialog dialog) {
+        Toast.makeText(getBaseContext(),
+                dialog.getNomUsuario(),
+                Toast.LENGTH_SHORT).show();
     }
 }
