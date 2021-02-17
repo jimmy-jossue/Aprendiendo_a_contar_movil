@@ -1,15 +1,15 @@
 package com.janus.aprendiendoacontar;
 
-public class Perfil {
+public class Usuario {
 
     private int id;
     private int imagen;
     private String nombre;
 
-    public Perfil() {
+    public Usuario() {
     }
 
-    public Perfil(int imagen, String nombre) {
+    public Usuario(int imagen, String nombre) {
         this.imagen = imagen;
         this.nombre = nombre;
     }

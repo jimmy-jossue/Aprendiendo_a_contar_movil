@@ -11,14 +11,14 @@ import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
 public class MainActivity extends AppCompatActivity implements PerfilDialog.ActionDialogListener {
     private boolean registrado = false;
-    private Perfil perfilUsuario;
+    private Usuario usuario;
 
-    public Perfil getPerfilUsuario() {
-        return perfilUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setPerfilUsuario(Perfil perfilUsuario) {
-        this.perfilUsuario = perfilUsuario;
+    public void setUsuario(Usuario Usuario) {
+        this.usuario = Usuario;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements PerfilDialog.Acti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        perfilUsuario = new Perfil();
+        usuario = new Usuario();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
