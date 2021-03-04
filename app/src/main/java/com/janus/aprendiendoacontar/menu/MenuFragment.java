@@ -40,7 +40,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         btnOrdena.setOnClickListener(this);
 
         preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
-        preferences.contains()
+        showDialog();
     }
 
     @Override
@@ -77,16 +77,20 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onPositiveClick(PerfilDialog dialog) {
-        if (dialog.getAccion().equals("EDITAR")) {
-            btnPerfil.setBackgroundResource(dialog.getImagenPerfilElegida());
-            getUsuario().id = dialog.getId();
-            getUsuario().imagen = dialog.getImagenPerfilElegida();
-            getUsuario().nombre = dialog.getNomUsuario();
+//        if (dialog.getAccion().equals("EDITAR")) {
+//            btnPerfil.setBackgroundResource(dialog.getImagenPerfilElegida());
+        getUsuario().id = dialog.getId();
+        getUsuario().imagen = dialog.getImagenPerfilElegida();
+        getUsuario().nombre = dialog.getNomUsuario();
 
-        } else {
-            preferences.edit().putInt("USER_ID", dialog.getId());
-            preferences.edit().commit();
-        }
+        btnPerfil.setBackgroundResource(getUsuario().imagen);
+//
+//            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//            getUsuario().id = sharedPref.getInt("USER_ID", -1);
+//        } else {
+//            preferences.edit().putInt("USER_ID", dialog.getId());
+//            preferences.edit().commit();
+//        }
     }
 
     private void showDialog() {
