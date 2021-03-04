@@ -26,9 +26,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void initUI(View view) {
-        preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
-
-        btnSalir = view.findViewById(R.id.btnSalir);
+                btnSalir = view.findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(this);
         btnPerfil = view.findViewById(R.id.btnPerfil);
         btnPerfil.setOnClickListener(this);
@@ -40,6 +38,9 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         btnArrastra.setOnClickListener(this);
         btnOrdena = view.findViewById(R.id.btnOrdena);
         btnOrdena.setOnClickListener(this);
+
+        preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
+        preferences.contains()
     }
 
     @Override
@@ -77,6 +78,10 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onPositiveClick(PerfilDialog dialog) {
         if (dialog.getAccion().equals("EDITAR")) {
+            btnPerfil.setBackgroundResource(dialog.getImagenPerfilElegida());
+            getUsuario().id = dialog.getId();
+            getUsuario().imagen = dialog.getImagenPerfilElegida();
+            getUsuario().nombre = dialog.getNomUsuario();
 
         } else {
             preferences.edit().putInt("USER_ID", dialog.getId());

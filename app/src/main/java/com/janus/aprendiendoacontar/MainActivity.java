@@ -6,11 +6,10 @@ import android.view.WindowManager;
 import com.janus.aprendiendoacontar.db.Usuario;
 
 public class MainActivity extends BaseActivity {
-    private Usuario usuario;
     private SharedPreferences preferences;
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario Usuario) {
