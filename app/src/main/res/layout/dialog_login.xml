@@ -14,12 +14,13 @@
         app:layout_constraintBottom_toTopOf="@+id/et_nom_usuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
 
     <EditText
         android:id="@+id/et_nom_usuario"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_height="@dimen/_33sdp"
         android:layout_marginHorizontal="@dimen/_60sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:inputType="text"
@@ -35,8 +36,8 @@
 
     <ImageView
         android:id="@+id/btn_perfil_one"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:src="@drawable/ic_perfil_one"
         app:layout_constraintBottom_toBottomOf="@+id/btn_perfil_two"
         app:layout_constraintEnd_toStartOf="@id/btn_perfil_two"
@@ -45,8 +46,8 @@
 
     <ImageView
         android:id="@+id/btn_perfil_two"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:src="@drawable/ic_perfil_two"
         app:layout_constraintBottom_toTopOf="@+id/btn_list"
         app:layout_constraintEnd_toStartOf="@id/btn_perfil_three"
@@ -55,8 +56,8 @@
 
     <ImageView
         android:id="@+id/btn_perfil_three"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:src="@drawable/ic_perfil_three"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/btn_list"
@@ -66,8 +67,8 @@
 
     <ImageView
         android:id="@+id/btn_perfil_four"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:src="@drawable/ic_perfil_four"
         app:layout_constraintBottom_toBottomOf="@+id/btn_perfil_three"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +84,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_perfil_three" />
-    <!--        app:layout_constraintTop_toBottomOf="parent"/>-->
+        app:layout_constraintTop_toBottomOf="@id/btn_perfil_three"
+        app:layout_constraintVertical_bias="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

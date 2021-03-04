@@ -1,17 +1,13 @@
 package com.janus.aprendiendoacontar;
 
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
+import com.janus.aprendiendoacontar.db.Usuario;
 
-import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
-
-public class MainActivity extends AppCompatActivity implements PerfilDialog.ActionDialogListener {
-    private boolean registrado = false;
+public class MainActivity extends BaseActivity {
     private Usuario usuario;
+    private SharedPreferences preferences;
 
     public Usuario getUsuario() {
         return usuario;
@@ -22,30 +18,14 @@ public class MainActivity extends AppCompatActivity implements PerfilDialog.Acti
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        usuario = new Usuario();
-
+    public void initUI() {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (registrado) {
-            //no mostrar el alertDialog
-        } else {
-            showDialog();
-        }
-    }
-
-    private void showDialog() {
-        DialogFragment dialog = new PerfilDialog();
-        dialog.show(getSupportFragmentManager(), null);
+        usuario = new Usuario();
     }
 
     @Override
-    public void onPositiveClick(PerfilDialog dialog) {
-        Toast.makeText(getBaseContext(),
-                dialog.getNomUsuario(),
-                Toast.LENGTH_SHORT).show();
+    public int getLayout() {
+        return R.layout.activity_main;
     }
 }

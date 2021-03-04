@@ -39,6 +39,12 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         ivCantidad.setOnTouchListener(this);
 
         ImageButton btnAtras = view.findViewById(R.id.btnAtras);
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
+            }
+        });
 
 
         if (getArguments() != null) {

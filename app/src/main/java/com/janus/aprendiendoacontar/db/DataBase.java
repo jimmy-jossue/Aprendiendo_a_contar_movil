@@ -10,11 +10,12 @@ import androidx.room.RoomDatabase;
 public abstract class DataBase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "Aprendiendo_a_contar";
-    DataBase database;
+
+    private static DataBase database;
 
     public abstract UsuarioDao getUsuario();
 
-    public DataBase getInstance(Context context) {
+    public static DataBase getInstance(Context context) {
         if (database == null) {
             database = Room.databaseBuilder(context, DataBase.class, DATABASE_NAME)
                     .fallbackToDestructiveMigration()

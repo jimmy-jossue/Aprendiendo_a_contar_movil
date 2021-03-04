@@ -27,6 +27,11 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
     private ImageView btnPerfilThree;
     private ImageView btnPerfilFour;
     private int IdImagen = 0;
+    private String accion;
+
+    public PerfilDialog(String accion) {
+        this.accion = accion;
+    }
 
     public String getNomUsuario() {
         return etNomUsuario.getText().toString();
@@ -34,6 +39,10 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
 
     public int getImagenPerfilElegida() {
         return IdImagen;
+    }
+
+    public String getAccion() {
+        return accion;
     }
 
     @Override
@@ -108,6 +117,6 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
     }
 
     public interface ActionDialogListener {
-        public void onPositiveClick(PerfilDialog dialog);
+        void onPositiveClick(PerfilDialog dialog);
     }
 }

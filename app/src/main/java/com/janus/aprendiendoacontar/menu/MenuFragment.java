@@ -1,27 +1,22 @@
 package com.janus.aprendiendoacontar.menu;
 
-import android.animation.AnimatorInflater;
-import android.os.Bundle;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
+import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
 import com.janus.aprendiendoacontar.Utilities.UIAnimation;
+import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
-import java.util.Objects;
 
-public class MenuFragment extends Fragment implements View.OnClickListener{
+public class MenuFragment extends BaseFragment implements View.OnClickListener, PerfilDialog.ActionDialogListener {
 
+    SharedPreferences preferences;
     private ImageButton btnSalir;
     private ImageButton btnPerfil;
     private ImageButton btnConoce;
@@ -30,18 +25,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
     private ImageButton btnOrdena;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void initUI(View view) {
+        preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
 
         btnSalir = view.findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(this);
@@ -56,6 +41,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
         btnOrdena = view.findViewById(R.id.btnOrdena);
         btnOrdena.setOnClickListener(this);
     }
+
+    @Override
+    public int getLayout() {
+        return R.layout.fragment_menu;
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -80,6 +71,21 @@ public class MenuFragment extends Fragment implements View.OnClickListener{
 
     private void irAFragment(View view, int idAccionDestido) {
         UIAnimation.onScaleZoomIn(requireContext(), view);
-        Navigation.findNavController(requireView()).navigate(idAccionDestido);
+        Navigation.findNavController(getView()).navigate(idAccionDestido);
+    }
+
+    @Override
+    public void onPositiveClick(PerfilDialog dialog) {
+        if (dialog.getAccion().equals("EDITAR")) {
+
+        } else {
+            preferences.edit().putInt("USER_ID", dialog.getId());
+            preferences.edit().commit();
+        }
+    }
+
+    private void showDialog() {
+        DialogFragment dialog = new PerfilDialog("EDITAR");
+        dialog.show(requireActivity().getSupportFragmentManager(), null);
     }
 }

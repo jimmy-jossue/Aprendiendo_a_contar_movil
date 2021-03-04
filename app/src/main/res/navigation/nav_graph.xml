@@ -52,12 +52,11 @@
         <action
             android:id="@+id/action_conoceFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:popUpTo="@id/menuFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_conoceFragment_self"
-            app:destination="@id/conoceFragment"
-            app:popUpTo="@id/menuFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/conoceFragment" />
         <argument
             android:name="numero"
             app:argType="integer"
@@ -82,6 +81,7 @@
         <action
             android:id="@+id/action_arrastraFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:popUpTo="@id/menuFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -92,6 +92,7 @@
         <action
             android:id="@+id/action_ordenaFragment_to_menuFragment"
             app:destination="@id/menuFragment"
+            app:popUpTo="@id/menuFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

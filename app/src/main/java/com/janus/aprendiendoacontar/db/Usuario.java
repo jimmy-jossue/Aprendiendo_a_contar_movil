@@ -9,11 +9,11 @@ public class Usuario {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int id;
+    public int id;
 
     @ColumnInfo(name = "nombre")
-    private String nombre;
+    public String nombre;
 
     @ColumnInfo(name = "imagen")
-    private int imagen;
+    public int imagen;
 }

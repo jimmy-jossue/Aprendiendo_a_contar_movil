@@ -39,21 +39,23 @@
 
     <ImageButton
         android:id="@+id/btnConoce"
-        android:layout_width="@dimen/_125sdp"
-        android:layout_height="@dimen/_132sdp"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_125sdp"
         android:background="@drawable/btn_menu_conoce"
         android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCuantos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6"/>
+        app:layout_constraintVertical_bias="0.6" />
 
     <ImageButton
         android:id="@+id/btnCuantos"
-        android:layout_width="@dimen/_125sdp"
-        android:layout_height="@dimen/_132sdp"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_125sdp"
         android:background="@drawable/btn_menu_cuantos_lock"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_1sdp"
         app:layout_constraintBottom_toBottomOf="@+id/btnConoce"
         app:layout_constraintEnd_toStartOf="@+id/btnArrastra"
         app:layout_constraintStart_toEndOf="@+id/btnConoce"
@@ -61,9 +63,11 @@
 
     <ImageButton
         android:id="@+id/btnArrastra"
-        android:layout_width="@dimen/_125sdp"
-        android:layout_height="@dimen/_132sdp"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_125sdp"
         android:background="@drawable/btn_menu_arrastra_lock"
+        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="@+id/btnOrdena"
         app:layout_constraintEnd_toStartOf="@+id/btnOrdena"
         app:layout_constraintStart_toEndOf="@+id/btnCuantos"
@@ -71,14 +75,14 @@
 
     <ImageButton
         android:id="@+id/btnOrdena"
-        android:layout_width="@dimen/_125sdp"
-        android:layout_height="@dimen/_132sdp"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_125sdp"
         android:background="@drawable/btn_menu_ordena_lock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnArrastra"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="@dimen/_8sdp"
-        app:layout_constraintVertical_bias="0.6"/>
+        app:layout_constraintVertical_bias="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

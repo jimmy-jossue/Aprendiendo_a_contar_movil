@@ -1,4 +1,4 @@
-package com.janus.aprendiendoacontar;
+package com.janus.aprendiendoacontar.Models;
 
 public class Usuario {
 
