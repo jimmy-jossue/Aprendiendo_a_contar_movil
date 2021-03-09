@@ -61,6 +61,10 @@
             android:name="numero"
             app:argType="integer"
             android:defaultValue="1" />
+        <argument
+            android:name="accionAnterior"
+            android:defaultValue="siguiente"
+            app:argType="string" />
     </fragment>
 
     <fragment

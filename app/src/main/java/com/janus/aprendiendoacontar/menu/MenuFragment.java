@@ -40,7 +40,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         btnOrdena.setOnClickListener(this);
 
         preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
-        showDialog();
+//        showDialog();
     }
 
     @Override
@@ -91,6 +91,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
 //            preferences.edit().putInt("USER_ID", dialog.getId());
 //            preferences.edit().commit();
 //        }
+
+
     }
 
     private void showDialog() {

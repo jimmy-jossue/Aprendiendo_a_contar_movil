@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import androidx.annotation.AnimRes;
+
 import com.janus.aprendiendoacontar.R;
 
 public class UIAnimation {
@@ -19,19 +21,14 @@ public class UIAnimation {
         view.startAnimation(anim);
     }
 
-    public static void stopViewAnimation(View view){
+    public static void stopViewAnimation(View view) {
         view.clearAnimation();
     }
 
-    public static void translateIn_RightToLeft(Context context, View view){
-        Animation anim = AnimationUtils.loadAnimation(context, R.anim.translate_in_left_to_right);
+    public static void translateIn_LeftToRight(Context context, View view, @AnimRes int idAnimation) {
+        Animation anim = AnimationUtils.loadAnimation(context, idAnimation);
         view.startAnimation(anim);
     }
 
-    public static void translateIn_LeftToRight(Context context, View view){
-        Animation anim = AnimationUtils.loadAnimation(context, R.anim.translate_in_right_to_left);
-        view.startAnimation(anim);
-    }
 
-    
 }

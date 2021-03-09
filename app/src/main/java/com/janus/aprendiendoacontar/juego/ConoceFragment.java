@@ -1,6 +1,7 @@
 package com.janus.aprendiendoacontar.juego;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,12 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.UIAnimation;
 
 public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
+    final String SIGUIENTE = "siguiente";
     private float firstTouchX;
     ConoceNumeros conoce = new ConoceNumeros();
     int numero = 1;
+    final String ANTERIOR = "anterior";
+    ImageView ivCantidad;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,24 +40,38 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView ivCantidad = view.findViewById(R.id.ivCantidad);
-        ivCantidad.setOnTouchListener(this);
-
+        ivCantidad = view.findViewById(R.id.ivCantidad);
         ImageButton btnAtras = view.findViewById(R.id.btnAtras);
-        btnAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
-            }
-        });
-
 
         if (getArguments() != null) {
             numero = ConoceFragmentArgs.fromBundle(getArguments()).getNumero();
+            String accionAnterior = ConoceFragmentArgs.fromBundle(getArguments()).getAccionAnterior();
             ivCantidad.setImageResource(conoce.colocarImagen(numero));
-        }
 
-//        UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad);
+            if (accionAnterior.equals(SIGUIENTE)) {
+                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_left_to_right);
+            } else {
+                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_right_to_left);
+            }
+        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    btnAtras.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
+                                        }
+                                    });
+
+                                    ivCantidad.setOnTouchListener(ConoceFragment.this);
+                                }
+                            }
+
+                , 450);
+
+
     }
 
     @Override
@@ -75,21 +94,29 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
     private void numeroAnterior() {
         if (numero > 1) {
-//            numero--;
-//            Navigation.findNavController(requireView()).popBackStack();
-            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
-            accion.setNumero(--numero);
-            Navigation.findNavController(requireView()).navigate(accion);
+            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_left_to_right);
+            ivCantidad.setOnTouchListener(null);
+            numero--;
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> irA(ANTERIOR), 450);
         }
     }
 
     private void numeroSiguiente() {
         if (numero < 20) {
-            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
-            accion.setNumero(++numero);
-            Navigation.findNavController(requireView()).navigate(accion);
+            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_lefy);
+            ivCantidad.setOnTouchListener(null);
+            numero++;
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> irA(SIGUIENTE), 450);
         }
     }
 
+    private void irA(String accionAnterior) {
+        ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
+        accion.setNumero(numero);
+        accion.setAccionAnterior(accionAnterior);
+        Navigation.findNavController(requireView()).navigate(accion);
+    }
 
 }
