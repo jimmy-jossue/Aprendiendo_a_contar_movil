@@ -69,7 +69,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                                 }
                             }
 
-                , 450);
+                , 300);
 
 
     }
@@ -98,17 +98,17 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
             ivCantidad.setOnTouchListener(null);
             numero--;
             final Handler handler = new Handler();
-            handler.postDelayed(() -> irA(ANTERIOR), 450);
+            handler.postDelayed(() -> irA(ANTERIOR), 350);
         }
     }
 
     private void numeroSiguiente() {
         if (numero < 20) {
-            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_lefy);
+            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_left);
             ivCantidad.setOnTouchListener(null);
             numero++;
             final Handler handler = new Handler();
-            handler.postDelayed(() -> irA(SIGUIENTE), 450);
+            handler.postDelayed(() -> irA(SIGUIENTE), 350);
         }
     }
 
