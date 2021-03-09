@@ -92,7 +92,6 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
 //            preferences.edit().commit();
 //        }
 
-
     }
 
     private void showDialog() {

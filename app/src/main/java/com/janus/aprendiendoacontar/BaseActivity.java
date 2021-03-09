@@ -38,4 +38,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initDB() {
         db = DataBase.getInstance(this);
     }
+
+
 }

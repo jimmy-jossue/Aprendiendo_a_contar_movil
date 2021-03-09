@@ -55,23 +55,21 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
             }
         }
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    btnAtras.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
-                                        }
-                                    });
-
-                                    ivCantidad.setOnTouchListener(ConoceFragment.this);
-                                }
+        handler.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        btnAtras.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
                             }
+                        });
 
+                        ivCantidad.setOnTouchListener(ConoceFragment.this);
+                    }
+                }
                 , 300);
-
-
     }
 
     @Override
