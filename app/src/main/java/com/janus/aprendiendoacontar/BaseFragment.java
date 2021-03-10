@@ -35,4 +35,8 @@ public abstract class BaseFragment extends Fragment {
     public Usuario getUsuario() {
         return mContext.usuario;
     }
+
+    public void showDialog(String accion) {
+        mContext.showDialog(accion);
+    }
 }

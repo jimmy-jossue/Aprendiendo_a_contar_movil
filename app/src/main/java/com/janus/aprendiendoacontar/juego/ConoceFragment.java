@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Sound;
 import com.janus.aprendiendoacontar.Utilities.UIAnimation;
 
 public class ConoceFragment extends Fragment implements View.OnTouchListener {
@@ -25,6 +26,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
     int numero = 1;
     final String ANTERIOR = "anterior";
     ImageView ivCantidad;
+    private Sound sound;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        sound = new Sound(requireContext());
         ivCantidad = view.findViewById(R.id.ivCantidad);
         ImageButton btnAtras = view.findViewById(R.id.btnAtras);
 
@@ -66,6 +68,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                             }
                         });
 
+                        sound.Play(numero);
                         ivCantidad.setOnTouchListener(ConoceFragment.this);
                     }
                 }
@@ -79,10 +82,10 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                 firstTouchX = event.getX();
                 break;
             case MotionEvent.ACTION_UP:
-                if (firstTouchX > event.getX()) { //MAYOR
+                if (firstTouchX > event.getX() + 150) { //MAYOR
                     numeroSiguiente();
 
-                } else if (firstTouchX < event.getX()) { //MENOR
+                } else if (firstTouchX < event.getX() - 150) { //MENOR
                     numeroAnterior();
                 }
                 break;

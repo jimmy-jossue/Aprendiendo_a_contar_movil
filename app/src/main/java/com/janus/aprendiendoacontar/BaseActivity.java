@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.janus.aprendiendoacontar.db.DataBase;
 import com.janus.aprendiendoacontar.db.Usuario;
+import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements PerfilDialog.ActionDialogListener {
 
     //variables globales
     protected Context mContext;
@@ -20,6 +21,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initUI();
 
     public abstract int getLayout();
+
+    public abstract void showDialog(String accion);
+
+    @Override
+    public abstract void onPositiveClick(PerfilDialog dialog);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,5 +45,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         db = DataBase.getInstance(this);
     }
 
-
+//    @Override
+//    public void onPositiveClick(PerfilDialog dialog) {
+//            usuario.id = dialog.getId();
+//            usuario.imagen = dialog.getImagenPerfilElegida();
+//            usuario.nombre = dialog.getNomUsuario();
+//    }
 }

@@ -5,16 +5,14 @@ import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
 import com.janus.aprendiendoacontar.Utilities.UIAnimation;
-import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
 
-public class MenuFragment extends BaseFragment implements View.OnClickListener, PerfilDialog.ActionDialogListener {
+public class MenuFragment extends BaseFragment implements View.OnClickListener {
 
     SharedPreferences preferences;
     private ImageButton btnSalir;
@@ -40,7 +38,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         btnOrdena.setOnClickListener(this);
 
         preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
-//        showDialog();
+        showDialog("EDITAR");
     }
 
     @Override
@@ -75,27 +73,6 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         Navigation.findNavController(getView()).navigate(idAccionDestido);
     }
 
-    @Override
-    public void onPositiveClick(PerfilDialog dialog) {
-//        if (dialog.getAccion().equals("EDITAR")) {
-//            btnPerfil.setBackgroundResource(dialog.getImagenPerfilElegida());
-        getUsuario().id = dialog.getId();
-        getUsuario().imagen = dialog.getImagenPerfilElegida();
-        getUsuario().nombre = dialog.getNomUsuario();
+//    btnPerfil.setBackgroundResource(getUsuario().imagen);
 
-        btnPerfil.setBackgroundResource(getUsuario().imagen);
-//
-//            SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//            getUsuario().id = sharedPref.getInt("USER_ID", -1);
-//        } else {
-//            preferences.edit().putInt("USER_ID", dialog.getId());
-//            preferences.edit().commit();
-//        }
-
-    }
-
-    private void showDialog() {
-        DialogFragment dialog = new PerfilDialog("EDITAR");
-        dialog.show(requireActivity().getSupportFragmentManager(), null);
-    }
 }
