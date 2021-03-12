@@ -48,7 +48,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         if (getArguments() != null) {
             numero = ConoceFragmentArgs.fromBundle(getArguments()).getNumero();
             String accionAnterior = ConoceFragmentArgs.fromBundle(getArguments()).getAccionAnterior();
-            ivCantidad.setImageResource(conoce.colocarImagen(numero));
+            ivCantidad.setImageResource(conoce.obtenerImagen(numero));
 
             if (accionAnterior.equals(SIGUIENTE)) {
                 UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_left_to_right);

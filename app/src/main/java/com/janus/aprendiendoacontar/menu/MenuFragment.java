@@ -38,7 +38,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener {
         btnOrdena.setOnClickListener(this);
 
         preferences = getActivity().getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
-        showDialog("EDITAR");
+//        showDialog("EDITAR");
     }
 
     @Override

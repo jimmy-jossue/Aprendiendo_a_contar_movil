@@ -16,17 +16,26 @@ public class ConoceNumeros implements Jugable{
 
     }
 
-    public int colocarImagen(int numero){
+    @Override
+    public void finish(int correctos, int incorrectos) {
+
+    }
+
+    public int obtenerImagen(int numero) {
         int idImagen = 1;
 
-        switch (numero){
-            case 1: idImagen = R.drawable.img_uno;
+        switch (numero) {
+            case 1:
+                idImagen = R.drawable.img_uno;
                 break;
-            case 2: idImagen = R.drawable.img_dos;
+            case 2:
+                idImagen = R.drawable.img_dos;
                 break;
-            case 3: idImagen = R.drawable.img_tres;
+            case 3:
+                idImagen = R.drawable.img_tres;
                 break;
-            case 4: idImagen = R.drawable.img_cuatro;
+            case 4:
+                idImagen = R.drawable.img_cuatro;
                 break;
             case 5: idImagen = R.drawable.img_cinco;
                 break;

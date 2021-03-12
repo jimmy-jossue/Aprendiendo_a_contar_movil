@@ -22,7 +22,7 @@
         android:id="@+id/ivCantidad"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/_20ssp"
+        android:layout_margin="@dimen/_15ssp"
         android:scaleType="fitCenter"
         android:src="@drawable/img_uno"
         app:layout_constraintBottom_toBottomOf="parent"
