@@ -62,7 +62,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
             if (cuantos.getContador() < 19) {
                 formularPregunta();
             } else {
-                Toast.makeText(requireContext(), "20 numeros - Mostrar el Modal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "20 numeros - Mostrar el Modal ", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.ivCuantosCantidad) {
             Sound sound = new Sound(requireContext());
