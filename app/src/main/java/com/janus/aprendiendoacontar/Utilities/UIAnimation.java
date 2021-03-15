@@ -21,6 +21,11 @@ public class UIAnimation {
         view.startAnimation(anim);
     }
 
+    public static void onScaleZoomOut(Context context, View view) {
+        Animation anim = AnimationUtils.loadAnimation(context, R.anim.scale_zoom_out);
+        view.startAnimation(anim);
+    }
+
     public static void stopViewAnimation(View view) {
         view.clearAnimation();
     }

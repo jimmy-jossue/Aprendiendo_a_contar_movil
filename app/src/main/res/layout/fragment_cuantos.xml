@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivCantidad"
+        android:id="@+id/ivCuantosCantidad"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_15ssp"
@@ -39,7 +39,7 @@
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_48ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvOpcion2"
         app:layout_constraintEnd_toStartOf="@id/tvOpcion2"
@@ -55,7 +55,7 @@
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_48ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvOpcion3"
@@ -70,7 +70,7 @@
         android:gravity="center"
         android:text="0"
         android:textColor="@color/black"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_48ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvOpcion2"
         app:layout_constraintEnd_toEndOf="parent"

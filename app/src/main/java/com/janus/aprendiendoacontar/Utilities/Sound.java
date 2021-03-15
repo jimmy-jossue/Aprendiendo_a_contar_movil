@@ -81,7 +81,7 @@ public class Sound {
         return idAudioCantiidad;
     }
 
-    public void Play(int cantidad) {
+    public void playSonidoCantidad(int cantidad) {
         int idSonido = buscarAudioNombreCantidad(cantidad);
 
         stopPlaying();
@@ -95,5 +95,11 @@ public class Sound {
             sound.release();
             sound = null;
         }
+    }
+
+    public void play(int idSonido) {
+        stopPlaying();
+        sound = MediaPlayer.create(context, idSonido);
+        sound.start();
     }
 }

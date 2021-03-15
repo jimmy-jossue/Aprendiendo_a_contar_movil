@@ -68,7 +68,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                             }
                         });
 
-                        sound.Play(numero);
+                        sound.playSonidoCantidad(numero);
                         ivCantidad.setOnTouchListener(ConoceFragment.this);
                     }
                 }
