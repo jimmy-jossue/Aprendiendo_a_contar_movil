@@ -78,12 +78,12 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_12_estrellas,
             R.drawable.cuantos_13_estrellas,
             R.drawable.cuantos_14_estrellas,
-            R.drawable.cuantos_15_estrellas,
+            R.drawable.cuantos_15_estrellas/*,
             R.drawable.cuantos_16_estrellas,
             R.drawable.cuantos_17_estrellas,
             R.drawable.cuantos_18_estrellas,
             R.drawable.cuantos_19_estrellas,
-            R.drawable.cuantos_20_estrellas
+            R.drawable.cuantos_20_estrellas*/
     );
 
     private List<Integer> pecesAm = Arrays.asList(
@@ -202,12 +202,12 @@ public class CuantosHay implements Jugable {
     private int animalesChicos(int cantidad) {
         int img = 0;
 
-        int tipoAnimmal = (int) Math.floor(Math.random() * 4 + 1);
+        int tipoAnimmal = (int) Math.floor(Math.random() * 3 + 1);
 
         switch (tipoAnimmal) {
             case 1:
-                img = estrellas.get(cantidad);
-                animal.setTipoAnimal(Animal.ESTRELLA);
+                img = pecesAm.get(cantidad);
+                animal.setTipoAnimal(Animal.PEZ);
                 break;
             case 2:
                 img = pecesGlobo.get(cantidad);
@@ -215,10 +215,6 @@ public class CuantosHay implements Jugable {
                 break;
             case 3:
                 img = pecesAz.get(cantidad);
-                animal.setTipoAnimal(Animal.PEZ);
-                break;
-            default:
-                img = pecesAm.get(cantidad);
                 animal.setTipoAnimal(Animal.PEZ);
                 break;
         }

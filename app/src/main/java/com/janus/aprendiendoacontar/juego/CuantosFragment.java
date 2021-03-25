@@ -85,24 +85,34 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         handler.postDelayed(
                 () -> {
                     int posRespuesta = (int) Math.floor(Math.random() * 2);
+                    int distractor1;
+                    int distractor2;
+                    do {
+                        distractor1 = (int) Math.floor(Math.random() * 20 + 1);
+                    } while (distractor1 == cantidad);
+                    do {
+                        distractor2 = (int) Math.floor(Math.random() * 20 + 1);
+                    } while (distractor2 == cantidad && distractor2 != distractor1);
+
 
                     switch (posRespuesta) {
                         case 0:
                             tvOpcion1.setText(String.valueOf(cantidad));
-                            tvOpcion2.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
-                            tvOpcion3.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
+                            tvOpcion2.setText(String.valueOf(distractor1));
+                            tvOpcion3.setText(String.valueOf(distractor2));
                             break;
                         case 1:
-                            tvOpcion1.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
+                            tvOpcion1.setText(String.valueOf(distractor1));
                             tvOpcion2.setText(String.valueOf(cantidad));
-                            tvOpcion3.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
+                            tvOpcion3.setText(String.valueOf(distractor2));
                             break;
                         default:
-                            tvOpcion1.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
-                            tvOpcion2.setText(String.valueOf((int) Math.floor(Math.random() * 20 + 1)));
+                            tvOpcion1.setText(String.valueOf(distractor1));
+                            tvOpcion2.setText(String.valueOf(distractor2));
                             tvOpcion3.setText(String.valueOf(cantidad));
                             break;
                     }
+                    Toast.makeText(requireContext(), cantidad + "", Toast.LENGTH_SHORT).show();
                 }
                 , 100);
 
