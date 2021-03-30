@@ -82,7 +82,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                         //Abrir el Modal
                     }
                 }
-                , 1000);
+                , 500);
     }
 
 

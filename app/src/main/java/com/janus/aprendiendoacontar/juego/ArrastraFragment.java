@@ -8,16 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.navigation.Navigation;
+
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Numeros;
+
+import java.util.Stack;
 
 public class ArrastraFragment extends BaseFragment implements View.OnClickListener {
 
+    Stack<Integer> cantidades;
     AbsoluteLayout lyContainerViews;
-    int numero;
+    FrameLayout lyDestino;
+    int indice, cantidadActual;
+    int idImage;
+    private ImageButton btnAtras;
+    private ImageButton btnOk;
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
@@ -35,11 +46,15 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
                     ClipData.Item item = dragEvent.getClipData().getItemAt(0);
                     view.invalidate();
                     View v = (View) dragEvent.getLocalState();
+                    //Remover elemento de su conteneror original
                     ViewGroup viewGroup = (ViewGroup) v.getParent();
                     viewGroup.removeView(v);
+                    //agregar elemento al destino
                     FrameLayout destination = (FrameLayout) view;
                     destination.addView(v);
                     v.setVisibility(View.INVISIBLE);
+
+
                     return true;
                 default:
                     return false;
@@ -49,10 +64,21 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void initUI(View view) {
+        cantidades = Numeros.getUnorderedList();
+        indice = 0;
+        cantidadActual = cantidades.get(indice);
+
+        btnAtras = view.findViewById(R.id.btnAtrasArrastra);
+        btnAtras.setOnClickListener(this);
+        btnOk = view.findViewById(R.id.btnOkArrastra);
+        btnOk.setOnClickListener(this);
+
         lyContainerViews = view.findViewById(R.id.lyContainerViews);
-        FrameLayout lyDestino = view.findViewById(R.id.lyDestino);
+        lyDestino = view.findViewById(R.id.lyDestino);
         lyContainerViews.setOnDragListener(dragListener);
         lyDestino.setOnDragListener(dragListener);
+
+        paintPictures(cantidadActual);
 
 
     }
@@ -70,6 +96,8 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         int itemSize = metrics.widthPixels / (numberOfImages);
         int widthContainer = metrics.widthPixels - (itemSize + 25);
 
+        idImage = getImage((int) Math.floor(Math.random() * 8));
+
         for (int i = 1; i <= numberOfImages; i++) {
 
             itemSize = Math.min(itemSize, 350);
@@ -85,9 +113,6 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
     public ImageView createItem(int x, int y, int itemSize) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(itemSize, itemSize);
         ImageView ivItem = new ImageView(requireContext());
-
-
-        int idImage = getImage((int) Math.floor(Math.random() * 8));
 
         ivItem.setImageResource(idImage);
         ivItem.setLayoutParams(params);
@@ -148,6 +173,20 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        int id = v.getId();
+
+        if (id == btnAtras.getId()) {
+            Navigation.findNavController(requireView()).navigate(R.id.action_arrastraFragment_to_menuFragment);
+
+        } else if (id == btnOk.getId()) {
+            if (lyDestino.getChildCount() == cantidadActual) {
+
+            }
+        }
+
 
     }
+
+
+
 }

@@ -12,6 +12,7 @@ import java.util.Stack;
 public class CuantosHay implements Jugable {
 
     Stack<Integer> cantidades = new Stack<Integer>();
+    Context context;
     Sound sound;
     Animal animal;
     int intentosCorrectos = 0;
@@ -107,7 +108,8 @@ public class CuantosHay implements Jugable {
     );
 
     public CuantosHay(Context context) {
-        sound = new Sound(context);
+        this.context = context;
+        sound = new Sound(this.context);
         animal = new Animal();
 
         int nCartas = 20;
@@ -221,13 +223,15 @@ public class CuantosHay implements Jugable {
 
     @Override
     public void correcto() {
-        sound.play(R.raw.correcto);
+        Sound snd = new Sound(context);
+        snd.play(R.raw.correcto);
         intentosCorrectos++;
     }
 
     @Override
     public void incorrecto() {
-        sound.play(R.raw.error);
+        Sound snd = new Sound(context);
+        snd.play(R.raw.error);
         intentosIncorrectos++;
     }
 
