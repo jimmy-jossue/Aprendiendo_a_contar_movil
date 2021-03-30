@@ -16,7 +16,6 @@ import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.R;
 import com.janus.aprendiendoacontar.Utilities.Sound;
-import com.janus.aprendiendoacontar.Utilities.UIAnimation;
 
 public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
@@ -50,11 +49,11 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
             String accionAnterior = ConoceFragmentArgs.fromBundle(getArguments()).getAccionAnterior();
             ivCantidad.setImageResource(conoce.obtenerImagen(numero));
 
-            if (accionAnterior.equals(SIGUIENTE)) {
-                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_left_to_right);
-            } else {
-                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_right_to_left);
-            }
+//            if (accionAnterior.equals(SIGUIENTE)) {
+//                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_left_to_right);
+//            } else {
+//                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_right_to_left);
+//            }
         }
         final Handler handler = new Handler();
         handler.postDelayed(
@@ -95,7 +94,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
     private void numeroAnterior() {
         if (numero > 1) {
-            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_left_to_right);
+//            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_left_to_right);
             ivCantidad.setOnTouchListener(null);
             numero--;
             final Handler handler = new Handler();
@@ -105,7 +104,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
     private void numeroSiguiente() {
         if (numero < 20) {
-            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_left);
+//            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_left);
             ivCantidad.setOnTouchListener(null);
             numero++;
             final Handler handler = new Handler();

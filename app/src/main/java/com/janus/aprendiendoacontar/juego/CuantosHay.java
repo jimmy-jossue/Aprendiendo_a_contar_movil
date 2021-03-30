@@ -15,9 +15,10 @@ public class CuantosHay implements Jugable {
     Sound sound;
     Animal animal;
     int intentosCorrectos = 0;
-    int getIntentosIncorrectos = 0;
+    int intentosIncorrectos = 0;
     private int cantidadActual;
     private int contador = 0;
+
     private List<Integer> tortugas = Arrays.asList(
             R.drawable.cuantos_1_tortuga,
             R.drawable.cuantos_2_tortuga,
@@ -78,12 +79,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_12_estrellas,
             R.drawable.cuantos_13_estrellas,
             R.drawable.cuantos_14_estrellas,
-            R.drawable.cuantos_15_estrellas/*,
-            R.drawable.cuantos_16_estrellas,
-            R.drawable.cuantos_17_estrellas,
-            R.drawable.cuantos_18_estrellas,
-            R.drawable.cuantos_19_estrellas,
-            R.drawable.cuantos_20_estrellas*/
+            R.drawable.cuantos_15_estrellas
     );
 
     private List<Integer> pecesAm = Arrays.asList(
@@ -119,7 +115,7 @@ public class CuantosHay implements Jugable {
         int cantidad = (int) Math.floor(Math.random() * nCartas);
         for (int i = 0; i < nCartas; i++) {
             while (cantidades.contains(cantidad)) {
-                cantidad = (int) Math.floor(Math.random() * nCartas + 1);
+                cantidad = (int) Math.floor(Math.random() * (nCartas) + 1);
             }
             cantidades.push(cantidad);
         }
@@ -225,12 +221,14 @@ public class CuantosHay implements Jugable {
 
     @Override
     public void correcto() {
-
+        sound.play(R.raw.correcto);
+        intentosCorrectos++;
     }
 
     @Override
     public void incorrecto() {
-
+        sound.play(R.raw.error);
+        intentosIncorrectos++;
     }
 
     @Override

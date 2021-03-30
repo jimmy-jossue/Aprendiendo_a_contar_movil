@@ -17,7 +17,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AbsoluteLayout
+        android:id="@+id/lyContainerViews"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/_15ssp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/lyDestino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/lyDestino"
+        android:layout_width="@dimen/_160sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:background="@drawable/cofre"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btnAtras"
@@ -27,8 +48,6 @@
         android:background="@drawable/ic_atras"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <ImageButton
         android:id="@+id/btnOk"

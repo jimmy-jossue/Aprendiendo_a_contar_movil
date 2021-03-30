@@ -1,6 +1,5 @@
 package com.janus.aprendiendoacontar.juego;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,11 +22,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
     private TextView tvOpcion1;
     private TextView tvOpcion2;
     private TextView tvOpcion3;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    Sound sound = new Sound(mContext);
 
     @Override
     public int getLayout() {
@@ -56,21 +51,45 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         int id = v.getId();
         if (id == R.id.btnAtras) {
             Navigation.findNavController(requireView()).navigate(R.id.action_cuantosFragment_to_menuFragment);
-
         } else if (id == R.id.tvOpcion1 || id == R.id.tvOpcion2 || id == R.id.tvOpcion3) {
-            cuantos.siguienteNumero();
-            if (cuantos.getContador() < 19) {
-                formularPregunta();
-            } else {
-                Toast.makeText(requireContext(), "20 numeros - Mostrar el Modal ", Toast.LENGTH_SHORT).show();
-            }
+            Evaluarrespuesta(v);
         } else if (id == R.id.ivCuantosCantidad) {
-            Sound sound = new Sound(requireContext());
             sound.playSonidoCantidad(cuantos.getCantidadActual());
         }
     }
 
+
+    private void Evaluarrespuesta(View view) {
+        TextView res = (TextView) view;
+        String posibleRespuesta = res.getText().toString();
+
+        if (Integer.parseInt(posibleRespuesta) == cuantos.getCantidadActual()) {
+            cuantos.correcto();
+        } else {
+            cuantos.incorrecto();
+        }
+
+        tvOpcion1.setEnabled(false);
+        tvOpcion2.setEnabled(false);
+        tvOpcion3.setEnabled(false);
+        cuantos.siguienteNumero();
+        final Handler handler = new Handler();
+        handler.postDelayed(
+                () -> {
+                    if (cuantos.getContador() < 20) {
+                        formularPregunta();
+                    } else {
+                        //Abrir el Modal
+                    }
+                }
+                , 1000);
+    }
+
+
     private void formularPregunta() {
+        tvOpcion1.setEnabled(true);
+        tvOpcion2.setEnabled(true);
+        tvOpcion3.setEnabled(true);
         UIAnimation.onScaleZoomIn(requireContext(), tvOpcion1);
         UIAnimation.onScaleZoomIn(requireContext(), tvOpcion2);
         UIAnimation.onScaleZoomIn(requireContext(), tvOpcion2);
