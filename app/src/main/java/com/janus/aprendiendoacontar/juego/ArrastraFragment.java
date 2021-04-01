@@ -7,10 +7,10 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.navigation.Navigation;
 
@@ -24,15 +24,17 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
     Stack<Integer> cantidades;
     AbsoluteLayout lyContainerViews;
-    FrameLayout lyDestino;
+    AbsoluteLayout lyDestino;
     int indice, cantidadActual;
     int idImage;
     private ImageButton btnAtras;
     private ImageButton btnOk;
+
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
             switch (dragEvent.getAction()) {
+
                 case DragEvent.ACTION_DRAG_STARTED:
                     return dragEvent.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN);
                 case DragEvent.ACTION_DRAG_ENTERED:
@@ -43,18 +45,22 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
                 case DragEvent.ACTION_DRAG_LOCATION:
                     return true;
                 case DragEvent.ACTION_DROP:
-                    ClipData.Item item = dragEvent.getClipData().getItemAt(0);
                     view.invalidate();
                     View v = (View) dragEvent.getLocalState();
-                    //Remover elemento de su conteneror original
-                    ViewGroup viewGroup = (ViewGroup) v.getParent();
-                    viewGroup.removeView(v);
-                    //agregar elemento al destino
-                    FrameLayout destination = (FrameLayout) view;
-                    destination.addView(v);
-                    v.setVisibility(View.INVISIBLE);
 
-
+                    if (view.getId() == lyDestino.getId()) {
+                        //Remover elemento de su conteneror original
+                        ViewGroup viewGroup = (ViewGroup) v.getParent();
+                        viewGroup.removeView(v);
+                        //agregar elemento al destino
+                        AbsoluteLayout destination = (AbsoluteLayout) view;
+                        destination.addView(v);
+                        v.setVisibility(View.VISIBLE);
+                        if (lyDestino.getChildCount() > 0)
+                            lyDestino.getChildAt(lyDestino.getChildCount() - 1).setVisibility(View.INVISIBLE);
+                    } else {
+                        v.setVisibility(View.VISIBLE);
+                    }
                     return true;
                 default:
                     return false;
@@ -67,6 +73,12 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         cantidades = Numeros.getUnorderedList();
         indice = 0;
         cantidadActual = cantidades.get(indice);
+        String texto = "";
+        for (int i : cantidades) {
+            texto += " - " + i;
+        }
+
+        Toast.makeText(requireContext(), texto, Toast.LENGTH_LONG).show();
 
         btnAtras = view.findViewById(R.id.btnAtrasArrastra);
         btnAtras.setOnClickListener(this);
@@ -77,10 +89,10 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         lyDestino = view.findViewById(R.id.lyDestino);
         lyContainerViews.setOnDragListener(dragListener);
         lyDestino.setOnDragListener(dragListener);
+        view.setOnDragListener(dragListener);
 
-        paintPictures(cantidadActual);
-
-
+        int numerosDeMas = (int) Math.floor(Math.random() * 4 + 1);
+        DibujarFiguras(cantidadActual + numerosDeMas);
     }
 
     @Override
@@ -88,13 +100,14 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         return R.layout.fragment_arrastra;
     }
 
-    private void paintPictures(int numberOfImages) {
+    private void DibujarFiguras(int numberOfImages) {
         if (lyContainerViews.getChildCount() > 0)
             lyContainerViews.removeAllViews();
 
         DisplayMetrics metrics = requireContext().getResources().getDisplayMetrics();
-        int itemSize = metrics.widthPixels / (numberOfImages);
-        int widthContainer = metrics.widthPixels - (itemSize + 25);
+        int temp = (numberOfImages / 2);
+        int itemSize = metrics.widthPixels / temp;
+        int widthContainer = metrics.widthPixels - (itemSize + 10);
 
         idImage = getImage((int) Math.floor(Math.random() * 8));
 
@@ -102,8 +115,8 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
             itemSize = Math.min(itemSize, 350);
 
-            int itemX = (int) (Math.random() * (widthContainer - 25) + 25);
-            int itemY = (int) (Math.random() * (widthContainer - 25) + 25);
+            int itemX = (int) (Math.random() * (widthContainer) + 10);
+            int itemY = (int) (Math.random() * (((metrics.heightPixels / 3) * 2) - itemSize) + 10);
 
             View item = createItem(itemX, itemY, itemSize);
             lyContainerViews.addView(item);
@@ -128,7 +141,7 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
                 String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
                 ClipData data = new ClipData(clipText, mimeTypes, item);
                 View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(view);
-                view.startDragAndDrop(data, dragShadowBuilder, view, 0);
+                view.startDragAndDrop(data, dragShadowBuilder, view, View.DRAG_FLAG_OPAQUE);
                 view.setVisibility(View.INVISIBLE);
                 return true;
             }
@@ -183,8 +196,6 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
             }
         }
-
-
     }
 
 
