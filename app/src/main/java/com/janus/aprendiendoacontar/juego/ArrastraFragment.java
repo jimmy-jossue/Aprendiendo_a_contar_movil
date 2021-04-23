@@ -10,6 +10,7 @@ import android.widget.AbsoluteLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.navigation.Navigation;
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
 import com.janus.aprendiendoacontar.Utilities.Numeros;
+import com.janus.aprendiendoacontar.Utilities.Sound;
 
 import java.util.Stack;
 
@@ -29,6 +31,7 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
     int idImage;
     private ImageButton btnAtras;
     private ImageButton btnOk;
+    private TextView tvCantidadEnCofre;
 
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
@@ -58,6 +61,13 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
                         v.setVisibility(View.VISIBLE);
                         if (lyDestino.getChildCount() > 0)
                             lyDestino.getChildAt(lyDestino.getChildCount() - 1).setVisibility(View.INVISIBLE);
+                        new Sound(requireContext()).play(R.raw.bubble);
+                        String cantidadEnCofre = String.valueOf(lyDestino.getChildCount());
+                        tvCantidadEnCofre.setText(cantidadEnCofre);
+
+                        if (btnOk.getVisibility() == View.INVISIBLE)
+                            btnOk.setVisibility(View.VISIBLE);
+
                     } else {
                         v.setVisibility(View.VISIBLE);
                     }
@@ -70,20 +80,21 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void initUI(View view) {
-        cantidades = Numeros.getUnorderedList();
+        cantidades = Numeros.obtenerListaDesordenada(20);
         indice = 0;
         cantidadActual = cantidades.get(indice);
-        String texto = "";
+        StringBuilder texto = new StringBuilder();
         for (int i : cantidades) {
-            texto += " - " + i;
+            texto.append(" - ").append(i);
         }
 
-        Toast.makeText(requireContext(), texto, Toast.LENGTH_LONG).show();
+        Toast.makeText(requireContext(), texto.toString(), Toast.LENGTH_LONG).show();
 
         btnAtras = view.findViewById(R.id.btnAtrasArrastra);
         btnAtras.setOnClickListener(this);
         btnOk = view.findViewById(R.id.btnOkArrastra);
         btnOk.setOnClickListener(this);
+        tvCantidadEnCofre = view.findViewById(R.id.tvCantidadEnCofre);
 
         lyContainerViews = view.findViewById(R.id.lyContainerViews);
         lyDestino = view.findViewById(R.id.lyDestino);
@@ -91,8 +102,7 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         lyDestino.setOnDragListener(dragListener);
         view.setOnDragListener(dragListener);
 
-        int numerosDeMas = (int) Math.floor(Math.random() * 4 + 1);
-        DibujarFiguras(cantidadActual + numerosDeMas);
+        DibujarFiguras();
     }
 
     @Override
@@ -100,21 +110,29 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         return R.layout.fragment_arrastra;
     }
 
-    private void DibujarFiguras(int numberOfImages) {
-        if (lyContainerViews.getChildCount() > 0)
-            lyContainerViews.removeAllViews();
+    private void DibujarFiguras() {
+        Toast.makeText(requireContext(), cantidadActual + "", Toast.LENGTH_SHORT).show();
+        int numerosDeMas = (int) Math.floor(Math.random() * 4 + 1);
+        int numberOfImages = cantidadActual + numerosDeMas;
 
         DisplayMetrics metrics = requireContext().getResources().getDisplayMetrics();
-        int temp = (numberOfImages / 2);
-        int itemSize = metrics.widthPixels / temp;
+        int itemSize;
+
+        if (numberOfImages < 6) {
+            itemSize = (int) getResources().getDimension(R.dimen.img_large_size);
+        } else if (numberOfImages < 11) {
+            itemSize = (int) getResources().getDimension(R.dimen.img_medium_size);
+        } else {
+            itemSize = (int) getResources().getDimension(R.dimen.img_small_size);
+        }
+
         int widthContainer = metrics.widthPixels - (itemSize + 10);
 
         idImage = getImage((int) Math.floor(Math.random() * 8));
 
         for (int i = 1; i <= numberOfImages; i++) {
 
-            itemSize = Math.min(itemSize, 350);
-
+//            itemSize = Math.min(itemSize, 350);
             int itemX = (int) (Math.random() * (widthContainer) + 10);
             int itemY = (int) (Math.random() * (((metrics.heightPixels / 3) * 2) - itemSize) + 10);
 
@@ -133,18 +151,15 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         ivItem.setX(x);
         ivItem.setY(y);
 
-        ivItem.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                String clipText = "";
-                ClipData.Item item = new ClipData.Item(clipText);
-                String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
-                ClipData data = new ClipData(clipText, mimeTypes, item);
-                View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(view);
-                view.startDragAndDrop(data, dragShadowBuilder, view, View.DRAG_FLAG_OPAQUE);
-                view.setVisibility(View.INVISIBLE);
-                return true;
-            }
+        ivItem.setOnLongClickListener(view -> {
+            String clipText = "";
+            ClipData.Item item = new ClipData.Item(clipText);
+            String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+            ClipData data = new ClipData(clipText, mimeTypes, item);
+            View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(view);
+            view.startDragAndDrop(data, dragShadowBuilder, view, View.DRAG_FLAG_OPAQUE);
+            view.setVisibility(View.INVISIBLE);
+            return true;
         });
 
         return ivItem;
@@ -192,12 +207,29 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
             Navigation.findNavController(requireView()).navigate(R.id.action_arrastraFragment_to_menuFragment);
 
         } else if (id == btnOk.getId()) {
-            if (lyDestino.getChildCount() == cantidadActual) {
+            Sound sound = new Sound(requireContext());
+            indice++;
 
+            if (lyDestino.getChildCount() == cantidadActual) sound.play(R.raw.correcto);
+            else sound.play(R.raw.error);
+
+            if (indice <= cantidades.size()) {
+                cantidadActual = cantidades.get(indice);
+                limpiar();
+                DibujarFiguras();
+            } else {
+                Toast.makeText(requireContext(), "Modal", Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 
+    private void limpiar() {
+        if (lyContainerViews.getChildCount() > 0) lyContainerViews.removeAllViews();
+        if (lyDestino.getChildCount() > 0) lyDestino.removeAllViews();
+        tvCantidadEnCofre.setText("0");
+        btnOk.setVisibility(View.INVISIBLE);
+    }
 
 
 }

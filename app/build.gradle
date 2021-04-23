@@ -53,4 +53,5 @@ dependencies {
     //unit of measure ssp
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
+    implementation 'com.jmedeisis:draglinearlayout:1.1.0'
 }

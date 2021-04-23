@@ -1,25 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_under_sea"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".juego.OrdenaFragment">
 
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_under_sea"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/tvNumero1"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero2"
+        app:layout_constraintEnd_toStartOf="@id/tvNumero2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="@+id/tvNumero2" />
+
+    <TextView
+        android:id="@+id/tvNumero2"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero3"
+        app:layout_constraintEnd_toStartOf="@id/tvNumero3"
+        app:layout_constraintStart_toEndOf="@id/tvNumero1"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero3" />
+
+    <TextView
+        android:id="@+id/tvNumero3"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnOkOrdena"
+        app:layout_constraintEnd_toStartOf="@id/tvNumero4"
+        app:layout_constraintStart_toEndOf="@id/tvNumero2"
+        app:layout_constraintTop_toBottomOf="@+id/btnAtrasOrdena" />
+
+    <TextView
+        android:id="@+id/tvNumero4"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero3"
+        app:layout_constraintEnd_toStartOf="@id/tvNumero5"
+        app:layout_constraintStart_toEndOf="@id/tvNumero3"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero3" />
+
+    <TextView
+        android:id="@+id/tvNumero5"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvNumero4"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero4" />
 
     <ImageButton
-        android:id="@+id/btnAtras"
+        android:id="@+id/btnAtrasOrdena"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="@dimen/_55sdp"
         android:layout_margin="@dimen/_8sdp"
@@ -28,7 +94,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/btnOk"
+        android:id="@+id/btnOkOrdena"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_55sdp"
         android:background="@drawable/ic_btn_ok"

@@ -33,7 +33,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
     public void initUI(View view) {
         btnAtras = view.findViewById(R.id.btnAtras);
         ivCantidad = view.findViewById(R.id.ivCuantosCantidad);
-        tvOpcion1 = view.findViewById(R.id.tvOpcion1);
+        tvOpcion1 = view.findViewById(R.id.tvCantidadEnCofre);
         tvOpcion2 = view.findViewById(R.id.tvOpcion2);
         tvOpcion3 = view.findViewById(R.id.tvOpcion3);
 
@@ -51,7 +51,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         int id = v.getId();
         if (id == R.id.btnAtras) {
             Navigation.findNavController(requireView()).navigate(R.id.action_cuantosFragment_to_menuFragment);
-        } else if (id == R.id.tvOpcion1 || id == R.id.tvOpcion2 || id == R.id.tvOpcion3) {
+        } else if (id == R.id.tvCantidadEnCofre || id == R.id.tvOpcion2 || id == R.id.tvOpcion3) {
             Evaluarrespuesta(v);
         } else if (id == R.id.ivCuantosCantidad) {
             sound.playSonidoCantidad(cuantos.getCantidadActual());

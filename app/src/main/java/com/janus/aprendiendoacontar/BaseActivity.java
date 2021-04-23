@@ -22,11 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity implements PerfilDi
 
     public abstract int getLayout();
 
-//    public abstract void showDialog(String accion);
-
-//    @Override
-//    public abstract void onPositiveClick(PerfilDialog dialog);
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +39,12 @@ public abstract class BaseActivity extends AppCompatActivity implements PerfilDi
     protected void initDB() {
         db = DataBase.getInstance(this);
     }
+
+
+//    public abstract void showDialog(String accion);
+
+//    @Override
+//    public abstract void onPositiveClick(PerfilDialog dialog);
 
 //    @Override
 //    public void onPositiveClick(PerfilDialog dialog) {

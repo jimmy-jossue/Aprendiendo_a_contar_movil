@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="img_small_size">@dimen/_43sdp</dimen>
+    <dimen name="img_medium_size">@dimen/_55sdp</dimen>
+    <dimen name="img_large_size">@dimen/_90sdp</dimen>
+
+</resources>

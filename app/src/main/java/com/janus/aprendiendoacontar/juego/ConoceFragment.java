@@ -1,5 +1,6 @@
 package com.janus.aprendiendoacontar.juego;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         final Handler handler = new Handler();
         handler.postDelayed(
                 new Runnable() {
+                    @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public void run() {
                         btnAtras.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +94,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         return true;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void numeroAnterior() {
         if (numero > 1) {
 //            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_left_to_right);
@@ -102,6 +105,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void numeroSiguiente() {
         if (numero < 20) {
 //            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_left);

@@ -9,6 +9,9 @@ import java.util.List;
 
 @Dao
 public interface UsuarioDao {
+    @Query("SELECT * FROM Usuario WHERE nombre = :id LIMIT 1")
+    Usuario obtenerporId(int id);
+
     @Query("SELECT * FROM usuario")
     List<Usuario> obtenerTodos();
 

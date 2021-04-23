@@ -4,17 +4,16 @@ import java.util.Stack;
 
 public class Numeros {
 
-    public static Stack<Integer> getUnorderedList() {
-        Stack<Integer> cantidades = new Stack<Integer>();
+    public static Stack<Integer> obtenerListaDesordenada(int cantidadNumeros) {
+        Stack<Integer> lista = new Stack<Integer>();
 
-        int cantidad = (int) Math.floor(Math.random() * 20);
-        for (int i = 0; i < 20; i++) {
-            while (cantidades.contains(cantidad)) {
-                cantidad = (int) Math.floor(Math.random() * 20 + 1);
+        int cantidad = (int) Math.floor(Math.random() * cantidadNumeros);
+        for (int i = 0; i < cantidadNumeros; i++) {
+            while (lista.contains(cantidad)) {
+                cantidad = (int) Math.floor(Math.random() * cantidadNumeros + 1);
             }
-            cantidades.push(cantidad);
+            lista.push(cantidad);
         }
-
-        return cantidades;
+        return lista;
     }
 }

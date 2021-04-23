@@ -24,19 +24,20 @@
         android:background="@drawable/cofre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvOpcion1"
+        android:id="@+id/tvCantidadEnCofre"
         android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
         android:gravity="center"
         android:shadowColor="@color/black"
-        android:shadowRadius="7"
+        android:shadowRadius="8"
         android:text="0"
         android:textColor="@color/white"
-        android:textSize="@dimen/_55ssp"
+        android:textSize="@dimen/_65ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -58,6 +59,7 @@
         android:layout_margin="@dimen/_10sdp"
         android:background="@drawable/ic_btn_ok"
         android:scaleType="fitCenter"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
