@@ -2,20 +2,22 @@ package com.janus.aprendiendoacontar;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.janus.aprendiendoacontar.Utilities.Observer;
 import com.janus.aprendiendoacontar.db.DataBase;
 import com.janus.aprendiendoacontar.db.Usuario;
-import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
-public abstract class BaseActivity extends AppCompatActivity implements PerfilDialog.ActionDialogListener {
+public abstract class BaseActivity extends AppCompatActivity {
 
     //variables globales
     protected Context mContext;
     protected DataBase db;
     protected Usuario usuario;
+    Observer observer;
 
     //imnplementamos metodos abstractos
     public abstract void initUI();
@@ -30,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements PerfilDi
         initContext();
         initDB();
         usuario = new Usuario();
+        Toast.makeText(mContext, "Objeto Usuario creado", Toast.LENGTH_LONG).show();
     }
 
     private void initContext() {
@@ -37,19 +40,20 @@ public abstract class BaseActivity extends AppCompatActivity implements PerfilDi
     }
 
     protected void initDB() {
-        db = DataBase.getInstance(this);
+        db = DataBase.getInstance(mContext);
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
     }
 
 
-//    public abstract void showDialog(String accion);
+    public void agregarObserbador(Observer observer) {
+        this.observer = observer;
+    }
 
-//    @Override
-//    public abstract void onPositiveClick(PerfilDialog dialog);
 
-//    @Override
-//    public void onPositiveClick(PerfilDialog dialog) {
-//            usuario.id = dialog.getId();
-//            usuario.imagen = dialog.getImagenPerfilElegida();
-//            usuario.nombre = dialog.getNomUsuario();
-//    }
+    public void notificcarObservadores() {
+        observer.notifiar();
+    }
 }

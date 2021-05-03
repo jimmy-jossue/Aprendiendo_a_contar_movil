@@ -21,6 +21,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
     private TextView tvNumero3;
     private TextView tvNumero4;
     private TextView tvNumero5;
+
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
@@ -44,11 +45,18 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
                     String numero1 = viewArratrado.getText().toString();
 
                     //agregar elemento al destino
-                    TextView destination = (TextView) view;
-                    String numero2 = destination.getText().toString();
+                    if (view.getId() == tvNumero1.getId() || view.getId() == tvNumero2.getId() ||
+                            view.getId() == tvNumero3.getId() || view.getId() == tvNumero4.getId() ||
+                            view.getId() == tvNumero5.getId()) {
 
-                    viewArratrado.setText(numero2);
-                    destination.setText(numero1);
+                        TextView destination = (TextView) view;
+                        String numero2 = destination.getText().toString();
+
+                        viewArratrado.setText(numero2);
+                        destination.setText(numero1);
+                    }
+
+
                     v.setVisibility(View.VISIBLE);
                     return true;
                 default:
@@ -62,7 +70,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         btnBack = view.findViewById(R.id.btnAtrasOrdena);
         btnBack.setOnClickListener(this);
         btnOk = view.findViewById(R.id.btnOkOrdena);
-        btnBack.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
 
         tvNumero1 = view.findViewById(R.id.tvNumero1);
         tvNumero1.setOnDragListener(dragListener);
@@ -75,7 +83,6 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         tvNumero3 = view.findViewById(R.id.tvNumero3);
         tvNumero3.setOnDragListener(dragListener);
         tvNumero3.setOnLongClickListener(this);
-        tvNumero3.setEnabled(false);
 
         tvNumero4 = view.findViewById(R.id.tvNumero4);
         tvNumero4.setOnDragListener(dragListener);

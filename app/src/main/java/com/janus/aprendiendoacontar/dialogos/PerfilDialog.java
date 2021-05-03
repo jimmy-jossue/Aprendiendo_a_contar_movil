@@ -3,6 +3,8 @@ package com.janus.aprendiendoacontar.dialogos;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +68,9 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return createDialog();
+        Dialog dialog = createDialog();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return dialog;
     }
 
     private AlertDialog createDialog() {

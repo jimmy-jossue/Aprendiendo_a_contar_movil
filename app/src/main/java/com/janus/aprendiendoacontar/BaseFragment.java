@@ -1,6 +1,7 @@
 package com.janus.aprendiendoacontar;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,12 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = (BaseActivity) context;
+    }
+
     public DataBase getDB() {
         return mContext.db;
     }
@@ -35,8 +42,4 @@ public abstract class BaseFragment extends Fragment {
     public Usuario getUsuario() {
         return mContext.usuario;
     }
-
-//    public void showDialog(String accion) {
-//        mContext.showDialog(accion);
-//    }
 }

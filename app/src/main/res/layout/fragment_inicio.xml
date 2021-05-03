@@ -39,4 +39,5 @@
         app:layout_constraintStart_toStartOf="@+id/ivTitle"
         app:layout_constraintTop_toBottomOf="@+id/ivTitle" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

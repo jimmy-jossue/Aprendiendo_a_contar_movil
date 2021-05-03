@@ -9,7 +9,7 @@ import java.util.List;
 
 @Dao
 public interface UsuarioDao {
-    @Query("SELECT * FROM Usuario WHERE nombre = :id LIMIT 1")
+    @Query("SELECT * FROM Usuario WHERE id = :id LIMIT 1")
     Usuario obtenerporId(int id);
 
     @Query("SELECT * FROM usuario")
@@ -22,9 +22,9 @@ public interface UsuarioDao {
     Usuario buscarPorNombre(String nombre);
 
     @Insert
-    void Insertar(Usuario... usuarios);
+    long Insertar(Usuario usuario);
 
     @Update
-    void updateUsers(Usuario... usuarios);
+    void updateUser(Usuario usuario);
 
 }

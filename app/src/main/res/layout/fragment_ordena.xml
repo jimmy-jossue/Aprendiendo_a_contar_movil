@@ -7,6 +7,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".juego.OrdenaFragment">
 
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/ic_circle_marck"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero1"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumero1"
+        app:layout_constraintStart_toStartOf="@+id/tvNumero1"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero1" />
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/ic_circle_marck"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero2"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumero2"
+        app:layout_constraintStart_toStartOf="@+id/tvNumero2"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero2" />
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/ic_circle_marck"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero3"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumero3"
+        app:layout_constraintStart_toStartOf="@+id/tvNumero3"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero3" />
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/ic_circle_marck"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero4"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumero4"
+        app:layout_constraintStart_toStartOf="@+id/tvNumero4"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero4" />
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_3sdp"
+        android:src="@drawable/ic_circle_marck"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNumero5"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumero5"
+        app:layout_constraintStart_toStartOf="@+id/tvNumero5"
+        app:layout_constraintTop_toTopOf="@+id/tvNumero5" />
+
     <TextView
         android:id="@+id/tvNumero1"
         android:layout_width="@dimen/_80sdp"
