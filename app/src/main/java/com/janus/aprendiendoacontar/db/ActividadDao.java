@@ -13,10 +13,10 @@ public interface ActividadDao {
     @Query("SELECT * FROM Actividad WHERE id = :id LIMIT 1")
     Actividad obtenerporId(int id);
 
-    @Query("SELECT * FROM Actividad")
+    @Query("SELECT * FROM Actividad ORDER BY id DESC")
     List<Actividad> obtenerTodos();
 
-    @Query("SELECT * FROM Actividad WHERE nombre = :nombre LIMIT 1")
+    @Query("SELECT * FROM Actividad WHERE nombre = :nombre ORDER BY id DESC LIMIT 1")
     Actividad buscarPorNombre(String nombre);
 
     @Insert

@@ -1,6 +1,8 @@
 package com.janus.aprendiendoacontar.juego;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 
 import com.janus.aprendiendoacontar.R;
 import com.janus.aprendiendoacontar.Utilities.Sound;
@@ -114,13 +116,17 @@ public class CuantosHay implements Jugable {
 
         int nCartas = 20;
 
-        int cantidad = (int) Math.floor(Math.random() * nCartas);
+        StringBuilder n = new StringBuilder();
+        int cantidad = (int) Math.floor(Math.random() * nCartas + 1);
         for (int i = 0; i < nCartas; i++) {
             while (cantidades.contains(cantidad)) {
                 cantidad = (int) Math.floor(Math.random() * (nCartas) + 1);
+//                cantidad = (int) Math.floor(new Random().nextDouble() * nCartas + 1);
             }
             cantidades.push(cantidad);
+            n.append("\n").append(cantidad);
         }
+        Log.d("jimmy", "\n " + n);
     }
 
     public int getCantidadActual() {
@@ -139,6 +145,11 @@ public class CuantosHay implements Jugable {
         int img = 0;
 
         cantidadActual = cantidades.get(contador);
+
+        String m = "\n contador: " + contador
+                + "\n cantidades: " + cantidades.size()
+                + "\n cantidad actial: " + cantidadActual;
+        Log.d("jimmy", m);
 
         if (cantidadActual >= 16)
             img = animalesChicos(cantidadActual - 16);
@@ -162,6 +173,7 @@ public class CuantosHay implements Jugable {
                 animal.setTipoAnimal(Animal.TORTUGA);
                 break;
             case 2:
+                Log.d("jimmy", "cantidad: " + cantidad + "\n cangrejos: " + cangrejos.size());
                 img = cangrejos.get(cantidad);
                 animal.setTipoAnimal(Animal.CANGREJO);
                 break;
@@ -236,7 +248,7 @@ public class CuantosHay implements Jugable {
     }
 
     @Override
-    public void finish(int correctos, int incorrectos) {
+    public void finish(View view, int correctos, int incorrectos) {
 
     }
 

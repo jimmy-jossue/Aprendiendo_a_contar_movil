@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_300sdp"
+    android:layout_height="@dimen/_300sdp"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:background="@drawable/bg_dialog_fin_actividad">
+
+    <com.willy.ratingbar.ScaleRatingBar
+        android:id="@+id/rbStarts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srb_clearRatingEnabled="true"
+        app:srb_drawableEmpty="@drawable/ic_star_empty"
+        app:srb_drawableFilled="@drawable/ic_star_complete"
+        app:srb_isIndicator="false"
+        app:srb_numStars="3"
+        app:srb_rating="0"
+        app:srb_starHeight="@dimen/_80sdp"
+        app:srb_starPadding="@dimen/_8sdp"
+        app:srb_starWidth="@dimen/_80sdp"
+        app:srb_stepSize="0.5" />
+
+    <TextView
+        android:id="@+id/tvCorrectos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_100sdp"
+        android:text="0"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/_70ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiagonal"
+        app:layout_constraintEnd_toStartOf="@+id/tvDiagonal"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvDiagonal" />
+
+    <TextView
+        android:id="@+id/tvDiagonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="/"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/_85ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnReintentar"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotal"
+        app:layout_constraintStart_toEndOf="@+id/tvCorrectos"
+        app:layout_constraintTop_toBottomOf="@+id/rbStarts" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_100sdp"
+        android:text="20"
+        android:textColor="@color/dark"
+        android:textSize="@dimen/_70ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDiagonal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvDiagonal"
+        app:layout_constraintTop_toTopOf="@+id/tvDiagonal" />
+
+    <ImageButton
+        android:id="@+id/btnReintentar"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/ic_btn_volver_intentar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnVolverMenu" />
+
+    <ImageButton
+        android:id="@+id/btnVolverMenu"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/ic_btn_volver_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnReintentar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

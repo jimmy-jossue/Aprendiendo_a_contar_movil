@@ -2,7 +2,6 @@ package com.janus.aprendiendoacontar;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,13 +10,16 @@ import com.janus.aprendiendoacontar.Utilities.Observer;
 import com.janus.aprendiendoacontar.db.DataBase;
 import com.janus.aprendiendoacontar.db.Usuario;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     //variables globales
     protected Context mContext;
     protected DataBase db;
     protected Usuario usuario;
-    Observer observer;
+    Set<Observer> observers;
 
     //imnplementamos metodos abstractos
     public abstract void initUI();
@@ -28,11 +30,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
+        observers = new LinkedHashSet<Observer>();
         initUI();
         initContext();
         initDB();
         usuario = new Usuario();
-        Toast.makeText(mContext, "Objeto Usuario creado", Toast.LENGTH_LONG).show();
     }
 
     private void initContext() {
@@ -49,11 +51,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     public void agregarObserbador(Observer observer) {
-        this.observer = observer;
+        this.observers.add(observer);
     }
 
 
     public void notificcarObservadores() {
-        observer.notifiar();
+        for (Observer observer : observers) {
+            observer.notifiar();
+        }
     }
 }

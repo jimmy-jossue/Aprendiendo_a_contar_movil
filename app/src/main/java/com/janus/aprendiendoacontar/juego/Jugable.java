@@ -1,9 +1,12 @@
 package com.janus.aprendiendoacontar.juego;
 
+import android.view.View;
+
 public interface Jugable {
 
     void correcto();
+
     void incorrecto();
 
-    void finish(int correctos, int incorrectos);
+    void finish(View viewDestino, int correctos, int incorrectos);
 }

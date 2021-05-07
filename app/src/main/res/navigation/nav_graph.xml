@@ -44,7 +44,8 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_progressFragment"
-            app:destination="@id/progressFragment" />
+            app:destination="@id/progressFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -59,7 +60,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_conoceFragment_self"
-            app:destination="@id/conoceFragment" />
+            app:destination="@id/conoceFragment"
+            app:popUpTo="@id/conoceFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="numero"
             app:argType="integer"
@@ -110,6 +113,8 @@
         tools:layout="@layout/fragment_progress">
         <action
             android:id="@+id/action_progressFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+            app:destination="@id/menuFragment"
+            app:popUpTo="@id/menuFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

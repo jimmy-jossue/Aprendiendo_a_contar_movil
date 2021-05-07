@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.R;
 
 public class PerfilDialog extends DialogFragment implements View.OnClickListener {
@@ -106,7 +107,17 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
             }
         });
 
-        setCancelable(false);
+        if (!getAccion().equals("Editar")) {
+            setCancelable(false);
+        } else {
+            BaseActivity context = (BaseActivity) getActivity();
+            if (context != null) {
+                imgPerfilElegida.setImageResource(context.getUsuario().imagen);
+                IdImagen = context.getUsuario().imagen;
+                etNomUsuario.setText(context.getUsuario().nombre);
+            }
+        }
+
         return builder.create();
     }
 
@@ -115,6 +126,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         super.onAttach(context);
         try {
             listener = (ActionDialogListener) context;
+
         } catch (ClassCastException e) {
             throw new ClassCastException(" must implement NoticeDialogListener");
         }

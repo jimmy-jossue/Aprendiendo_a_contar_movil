@@ -7,15 +7,6 @@
     android:background="@drawable/bg_sea"
     tools:context=".menu.ProgressFragment">
 
-    <ImageButton
-        android:id="@+id/btnAtrasProgreso"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_55sdp"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/ic_atras"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/ivTitle"
         android:layout_width="wrap_content"
@@ -41,13 +32,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/tvProceso_image"
+            android:id="@+id/ivProgreso_image"
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
             android:src="@drawable/ic_perfil_one" />
 
         <TextView
-            android:id="@+id/tvProceso_nombre"
+            android:id="@+id/tvProgreso_nombre"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginHorizontal="@dimen/_5sdp"
@@ -57,11 +48,21 @@
             android:textColor="#30302F"
             android:textSize="@dimen/_22ssp" />
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/btnProgreso_edit"
             android:layout_width="@dimen/_32sdp"
             android:layout_height="@dimen/_32sdp"
-            android:src="@drawable/ic_edit" />
+            android:background="@drawable/ic_edit" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnAtrasProgreso"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/ic_atras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -148,7 +149,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvConoce_corectas"
+            android:id="@+id/tvConoce_correctas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="1"
@@ -164,7 +165,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvConoce_incorectas"
+            android:id="@+id/tvConoce_incorrectas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="1"
@@ -212,7 +213,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvCuantos_corectas"
+            android:id="@+id/tvCuantos_correctas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="2"
@@ -228,7 +229,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvCuantos_incorectas"
+            android:id="@+id/tvCuantos_incorrectas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="2"
@@ -275,7 +276,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvArrastra_corectas"
+            android:id="@+id/tvArrastra_correctas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="3"
@@ -291,7 +292,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvArrastra_incorectas"
+            android:id="@+id/tvArrastra_incorrectas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="3"
@@ -339,7 +340,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvOrdena_corectas"
+            android:id="@+id/tvOrdena_correctas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="4"
@@ -355,7 +356,7 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tvOrdena_incorectas"
+            android:id="@+id/tvOrdena_incorrectas"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_row="4"

@@ -3,13 +3,17 @@ package com.janus.aprendiendoacontar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.WindowManager;
-import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
+import com.janus.aprendiendoacontar.Utilities.Consts;
 import com.janus.aprendiendoacontar.db.Usuario;
 import com.janus.aprendiendoacontar.db.UsuarioDao;
+import com.janus.aprendiendoacontar.dialogos.FinActividadDialog;
 import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
+import com.janus.aprendiendoacontar.juego.ConoceFragmentDirections;
 
-public class MainActivity extends BaseActivity implements PerfilDialog.ActionDialogListener {
+public class MainActivity extends BaseActivity implements PerfilDialog.ActionDialogListener, FinActividadDialog.ActionDialogListener {
     SharedPreferences preferences;
 
 
@@ -24,18 +28,19 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
         return R.layout.activity_main;
     }
 
-
     @Override
     public void onPositiveClick(PerfilDialog dialog) {
+        Usuario usuario = new Usuario();
+        usuario.nombre = dialog.getNomUsuario();
+        usuario.imagen = dialog.getImagenPerfilElegida();
+
         if (dialog.getAccion().equals("guardar")) {
-
-            Usuario usuario = new Usuario();
-            usuario.nombre = dialog.getNomUsuario();
-            usuario.imagen = dialog.getImagenPerfilElegida();
-
             guardarUsuario(usuario);
-            notificcarObservadores();
+        } else {
+            usuario.id = getUsuario().id;
+            editarUsuario(usuario);
         }
+        notificcarObservadores();
     }
 
     private void guardarUsuario(Usuario usuario) {
@@ -44,8 +49,18 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
 
         usuario.id = (int) id;
         super.usuario = usuario;
-        Toast.makeText(mContext, getUsuario() + "\n" + getUsuario().nombre + "\n" + getUsuario().imagen, Toast.LENGTH_SHORT).show();
         recordarUsuario(super.getUsuario());
+    }
+
+    private void editarUsuario(Usuario usuario) {
+        UsuarioDao dao = db.getUsuario();
+        dao.Editar(usuario);
+
+        getUsuario().id = usuario.id;
+        getUsuario().nombre = usuario.nombre;
+        getUsuario().imagen = usuario.imagen;
+
+        recordarUsuario(getUsuario());
     }
 
     private void recordarUsuario(Usuario usuario) {
@@ -56,12 +71,28 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
         editor.apply();
     }
 
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        super.onWindowFocusChanged(hasFocus);
-//
-//        View decorView = getWindow().getDecorView();
-//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
-//        decorView.setSystemUiVisibility(uiOptions);
-//    }
+    @Override
+    public void onReintentarClick(FinActividadDialog dialog) {
+        int idDestino = 0;
+        String destino = dialog.obtenerDestino();
+
+        if (destino.equals(Consts.CONOCE)) {
+            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
+            accion.setNumero(1);
+            accion.setAccionAnterior("anterior");
+            Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(accion);
+        } else if (destino.equals(Consts.CUANTOS)) {
+            idDestino = R.id.action_menuFragment_to_cuantosFragment;
+        } else if (destino.equals(Consts.ARRASTRA))
+            idDestino = R.id.action_menuFragment_to_arrastraFragment;
+        else if (destino.equals(Consts.ORDENA))
+            idDestino = R.id.action_menuFragment_to_ordenaFragment;
+
+//        Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(idDestino);
+    }
+
+    @Override
+    public void onVolverMenuClick(FinActividadDialog dialog) {
+        Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(R.id.action_conoceFragment_to_menuFragment);
+    }
 }

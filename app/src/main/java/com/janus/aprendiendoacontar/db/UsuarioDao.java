@@ -25,6 +25,6 @@ public interface UsuarioDao {
     long Insertar(Usuario usuario);
 
     @Update
-    void updateUser(Usuario usuario);
+    void Editar(Usuario usuario);
 
 }

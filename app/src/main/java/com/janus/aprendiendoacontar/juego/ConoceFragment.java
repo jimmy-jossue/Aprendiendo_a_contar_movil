@@ -22,10 +22,10 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
     final String SIGUIENTE = "siguiente";
     private float firstTouchX;
-    ConoceNumeros conoce = new ConoceNumeros();
+    private ConoceNumeros conoce;
     int numero = 1;
     final String ANTERIOR = "anterior";
-    ImageView ivCantidad;
+    private ImageView ivCantidad;
     private Sound sound;
 
     @Override
@@ -44,17 +44,18 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         sound = new Sound(requireContext());
         ivCantidad = view.findViewById(R.id.ivCantidad);
         ImageButton btnAtras = view.findViewById(R.id.btnAtras);
+        conoce = new ConoceNumeros(requireContext());
 
         if (getArguments() != null) {
             numero = ConoceFragmentArgs.fromBundle(getArguments()).getNumero();
-            String accionAnterior = ConoceFragmentArgs.fromBundle(getArguments()).getAccionAnterior();
             ivCantidad.setImageResource(conoce.obtenerImagen(numero));
 
-//            if (accionAnterior.equals(SIGUIENTE)) {
-//                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_left_to_right);
-//            } else {
-//                UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_in_right_to_left);
-//            }
+            if (numero == 20) {
+                ivCantidad.setEnabled(false);
+                new Handler().postDelayed(
+                        () -> conoce.finish(requireView(), numero, 0)
+                        , 1500);
+            }
         }
         final Handler handler = new Handler();
         handler.postDelayed(
@@ -62,11 +63,9 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                     @SuppressLint("ClickableViewAccessibility")
                     @Override
                     public void run() {
-                        btnAtras.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
-                            }
+                        btnAtras.setOnClickListener(v -> {
+                            conoce.finish(requireView(), numero, 0);
+//                                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
                         });
 
                         sound.playSonidoCantidad(numero);
@@ -122,5 +121,4 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         accion.setAccionAnterior(accionAnterior);
         Navigation.findNavController(requireView()).navigate(accion);
     }
-
 }

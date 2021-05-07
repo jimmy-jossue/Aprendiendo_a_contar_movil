@@ -132,7 +132,6 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
 
         for (int i = 1; i <= numberOfImages; i++) {
 
-//            itemSize = Math.min(itemSize, 350);
             int itemX = (int) (Math.random() * (widthContainer) + 10);
             int itemY = (int) (Math.random() * (((metrics.heightPixels / 3) * 2) - itemSize) + 10);
 

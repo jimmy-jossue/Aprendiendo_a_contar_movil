@@ -15,10 +15,10 @@ public class Actividad {
     public String nombre;
 
     @ColumnInfo(name = "ejerciciosCorrectos")
-    public int ejerciciosCorrectos;
+    public int ejerciciosCorrectos = 0;
 
     @ColumnInfo(name = "ejerciciosIncorrectos")
-    public int ejerciciosIncorrectos;
+    public int ejerciciosIncorrectos = 0;
 }
 
 

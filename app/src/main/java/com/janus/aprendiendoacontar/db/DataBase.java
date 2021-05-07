@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Usuario.class}, version = 1, exportSchema = false)
+@Database(entities = {Usuario.class, Actividad.class}, version = 2, exportSchema = false)
 public abstract class DataBase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "Aprendiendo_a_contar";
@@ -14,6 +14,8 @@ public abstract class DataBase extends RoomDatabase {
     private static DataBase database;
 
     public abstract UsuarioDao getUsuario();
+
+    public abstract ActividadDao getActividad();
 
     public static DataBase getInstance(Context context) {
         if (database == null) {
