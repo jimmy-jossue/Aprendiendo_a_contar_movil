@@ -73,26 +73,57 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
 
     @Override
     public void onReintentarClick(FinActividadDialog dialog) {
-        int idDestino = 0;
         String destino = dialog.obtenerDestino();
 
-        if (destino.equals(Consts.CONOCE)) {
-            ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
-            accion.setNumero(1);
-            accion.setAccionAnterior("anterior");
-            Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(accion);
-        } else if (destino.equals(Consts.CUANTOS)) {
-            idDestino = R.id.action_menuFragment_to_cuantosFragment;
-        } else if (destino.equals(Consts.ARRASTRA))
-            idDestino = R.id.action_menuFragment_to_arrastraFragment;
-        else if (destino.equals(Consts.ORDENA))
-            idDestino = R.id.action_menuFragment_to_ordenaFragment;
+        switch (destino) {
+            case Consts.CONOCE:
+                ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
+                accion.setNumero(1);
+                accion.setAccionAnterior("anterior");
+                Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(accion);
+                break;
+            case Consts.CUANTOS:
+                Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(R.id.action_cuantosFragment_to_menuFragment);
 
-//        Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(idDestino);
+                Navigation
+                        .findNavController(dialog.obtenerVistaDestino())
+                        .navigate(R.id.action_menuFragment_to_cuantosFragment);
+                break;
+            case Consts.ARRASTRA:
+                Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(R.id.action_arrastraFragment_to_menuFragment);
+
+                Navigation
+                        .findNavController(dialog.obtenerVistaDestino())
+                        .navigate(R.id.action_menuFragment_to_arrastraFragment);
+                break;
+            case Consts.ORDENA:
+                Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(R.id.action_ordenaFragment_to_menuFragment);
+
+                Navigation
+                        .findNavController(dialog.obtenerVistaDestino())
+                        .navigate(R.id.action_menuFragment_to_ordenaFragment);
+                break;
+        }
     }
 
     @Override
     public void onVolverMenuClick(FinActividadDialog dialog) {
-        Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(R.id.action_conoceFragment_to_menuFragment);
+        int idDestino = 0;
+        String destino = dialog.obtenerDestino();
+        switch (destino) {
+            case Consts.CONOCE:
+                idDestino = R.id.action_conoceFragment_to_menuFragment;
+                break;
+            case Consts.CUANTOS:
+                idDestino = R.id.action_cuantosFragment_to_menuFragment;
+                break;
+            case Consts.ARRASTRA:
+                idDestino = R.id.action_arrastraFragment_to_menuFragment;
+                break;
+            case Consts.ORDENA:
+                idDestino = R.id.action_ordenaFragment_to_menuFragment;
+                break;
+        }
+        Navigation.findNavController(dialog.obtenerVistaDestino()).navigate(idDestino);
     }
 }

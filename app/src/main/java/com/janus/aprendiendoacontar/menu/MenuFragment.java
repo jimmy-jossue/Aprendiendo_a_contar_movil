@@ -122,11 +122,11 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
             btnCuantos.setImageResource(R.drawable.btn_menu_cuantos);
             btnCuantos.setEnabled(true);
 
-            if (avancesCuantos >= 10) {
+            if (avancesCuantos >= 15) {
                 btnArrastra.setImageResource(R.drawable.btn_menu_arrastra);
                 btnArrastra.setEnabled(true);
 
-                if (avancesArrastra > 15) {
+                if (avancesArrastra > 10) {
                     btnOrdena.setImageResource(R.drawable.btn_menu_ordena);
                     btnOrdena.setEnabled(true);
                 }

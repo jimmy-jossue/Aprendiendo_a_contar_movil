@@ -5,9 +5,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.navigation.Navigation;
 
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
@@ -22,7 +19,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
     private TextView tvOpcion1;
     private TextView tvOpcion2;
     private TextView tvOpcion3;
-    Sound sound = new Sound(mContext);
+    Sound sound;
 
     @Override
     public int getLayout() {
@@ -37,10 +34,13 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         tvOpcion2 = view.findViewById(R.id.tvOpcion2);
         tvOpcion3 = view.findViewById(R.id.tvOpcion3);
 
+        ivCantidad.setOnClickListener(this);
         tvOpcion1.setOnClickListener(this);
         tvOpcion2.setOnClickListener(this);
         tvOpcion3.setOnClickListener(this);
         btnAtras.setOnClickListener(this);
+
+        sound = new Sound(requireContext());
 
         cuantos = new CuantosHay(requireContext());
         formularPregunta();
@@ -50,14 +50,13 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btnAtras) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_cuantosFragment_to_menuFragment);
+            cuantos.finish(requireView(), cuantos.intentosCorrectos, cuantos.intentosIncorrectos);
         } else if (id == R.id.tvCantidadEnCofre || id == R.id.tvOpcion2 || id == R.id.tvOpcion3) {
             Evaluarrespuesta(v);
         } else if (id == R.id.ivCuantosCantidad) {
             sound.playSonidoCantidad(cuantos.getCantidadActual());
         }
     }
-
 
     private void Evaluarrespuesta(View view) {
         TextView res = (TextView) view;
@@ -79,7 +78,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                     if (cuantos.getContador() < 20) {
                         formularPregunta();
                     } else {
-                        //Abrir el Modal
+                        cuantos.finish(requireView(), cuantos.intentosCorrectos, cuantos.intentosIncorrectos);
                     }
                 }
                 , 500);
@@ -103,7 +102,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         final Handler handler = new Handler();
         handler.postDelayed(
                 () -> {
-                    int posRespuesta = (int) Math.floor(Math.random() * 2);
+                    int posRespuesta = (int) Math.floor(Math.random() * 3);
                     int distractor1;
                     int distractor2;
                     do {
@@ -111,7 +110,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                     } while (distractor1 == cantidad);
                     do {
                         distractor2 = (int) Math.floor(Math.random() * 20 + 1);
-                    } while (distractor2 == cantidad && distractor2 != distractor1);
+                    } while (distractor2 == cantidad || distractor2 == distractor1);
 
 
                     switch (posRespuesta) {
@@ -131,7 +130,6 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                             tvOpcion3.setText(String.valueOf(cantidad));
                             break;
                     }
-                    Toast.makeText(requireContext(), cantidad + "", Toast.LENGTH_SHORT).show();
                 }
                 , 100);
 

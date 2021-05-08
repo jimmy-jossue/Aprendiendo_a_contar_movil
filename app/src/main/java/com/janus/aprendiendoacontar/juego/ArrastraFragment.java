@@ -13,16 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.navigation.Navigation;
-
+import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Consts;
 import com.janus.aprendiendoacontar.Utilities.Numeros;
+import com.janus.aprendiendoacontar.Utilities.Recordar;
 import com.janus.aprendiendoacontar.Utilities.Sound;
+import com.janus.aprendiendoacontar.db.Actividad;
+import com.janus.aprendiendoacontar.db.DataBase;
+import com.janus.aprendiendoacontar.dialogos.FinActividadDialog;
 
 import java.util.Stack;
 
-public class ArrastraFragment extends BaseFragment implements View.OnClickListener {
+public class ArrastraFragment extends BaseFragment implements Jugable, View.OnClickListener {
 
     Stack<Integer> cantidades;
     AbsoluteLayout lyContainerViews;
@@ -32,6 +36,8 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
     private ImageButton btnAtras;
     private ImageButton btnOk;
     private TextView tvCantidadEnCofre;
+    int correctos = 0;
+    int incorrectos = 0;
 
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
@@ -203,21 +209,20 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
         int id = v.getId();
 
         if (id == btnAtras.getId()) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_arrastraFragment_to_menuFragment);
+            finish(requireView(), correctos, incorrectos);
 
         } else if (id == btnOk.getId()) {
-            Sound sound = new Sound(requireContext());
             indice++;
 
-            if (lyDestino.getChildCount() == cantidadActual) sound.play(R.raw.correcto);
-            else sound.play(R.raw.error);
+            if (lyDestino.getChildCount() == cantidadActual) correcto();
+            else incorrecto();
 
-            if (indice <= cantidades.size()) {
+            if (indice < cantidades.size()) {
                 cantidadActual = cantidades.get(indice);
                 limpiar();
                 DibujarFiguras();
             } else {
-                Toast.makeText(requireContext(), "Modal", Toast.LENGTH_SHORT).show();
+                finish(requireView(), correctos, incorrectos);
             }
 
         }
@@ -231,4 +236,35 @@ public class ArrastraFragment extends BaseFragment implements View.OnClickListen
     }
 
 
+    @Override
+    public void correcto() {
+        Sound sound = new Sound(requireContext());
+        sound.play(R.raw.correcto);
+        correctos++;
+    }
+
+    @Override
+    public void incorrecto() {
+        Sound sound = new Sound(requireContext());
+        sound.play(R.raw.error);
+        incorrectos++;
+    }
+
+    @Override
+    public void finish(View viewDestino, int correctos, int incorrectos) {
+        DataBase db = DataBase.getInstance(requireContext());
+        Actividad act = new Actividad();
+        act.ejerciciosCorrectos = correctos;
+        act.ejerciciosIncorrectos = incorrectos;
+        act.nombre = Consts.ARRASTRA;
+        db.getActividad().Insertar(act);
+        Recordar.recordarActividad(requireContext(), Consts.KEY_ARRASTRA, correctos);
+
+        showDialog(viewDestino, correctos, Consts.ARRASTRA);
+    }
+
+    public void showDialog(View view, int correctos, String destino) {
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        dialog.show(((BaseActivity) requireContext()).getSupportFragmentManager(), null);
+    }
 }

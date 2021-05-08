@@ -4,8 +4,14 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Consts;
+import com.janus.aprendiendoacontar.Utilities.Recordar;
 import com.janus.aprendiendoacontar.Utilities.Sound;
+import com.janus.aprendiendoacontar.db.Actividad;
+import com.janus.aprendiendoacontar.db.DataBase;
+import com.janus.aprendiendoacontar.dialogos.FinActividadDialog;
 
 import java.util.Arrays;
 import java.util.List;
@@ -232,7 +238,6 @@ public class CuantosHay implements Jugable {
         return img;
     }
 
-
     @Override
     public void correcto() {
         Sound snd = new Sound(context);
@@ -249,7 +254,20 @@ public class CuantosHay implements Jugable {
 
     @Override
     public void finish(View view, int correctos, int incorrectos) {
+        DataBase db = DataBase.getInstance(context);
+        Actividad act = new Actividad();
+        act.ejerciciosCorrectos = correctos;
+        act.ejerciciosIncorrectos = incorrectos;
+        act.nombre = Consts.CUANTOS;
+        db.getActividad().Insertar(act);
+        Recordar.recordarActividad(context, Consts.KEY_CUANTOS, correctos);
 
+        showDialog(view, correctos, Consts.CUANTOS);
+    }
+
+    public void showDialog(View view, int correctos, String destino) {
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        dialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
     }
 
     public void Preguntar(String tipoAnimal) {
