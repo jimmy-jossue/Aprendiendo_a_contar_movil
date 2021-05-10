@@ -73,7 +73,6 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
 
                         if (btnOk.getVisibility() == View.INVISIBLE)
                             btnOk.setVisibility(View.VISIBLE);
-
                     } else {
                         v.setVisibility(View.VISIBLE);
                     }
@@ -94,14 +93,12 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
             texto.append(" - ").append(i);
         }
 
-        Toast.makeText(requireContext(), texto.toString(), Toast.LENGTH_LONG).show();
-
         btnAtras = view.findViewById(R.id.btnAtrasArrastra);
         btnAtras.setOnClickListener(this);
         btnOk = view.findViewById(R.id.btnOkArrastra);
         btnOk.setOnClickListener(this);
-        tvCantidadEnCofre = view.findViewById(R.id.tvCantidadEnCofre);
 
+        tvCantidadEnCofre = view.findViewById(R.id.tvCantidadEnCofre);
         lyContainerViews = view.findViewById(R.id.lyContainerViews);
         lyDestino = view.findViewById(R.id.lyDestino);
         lyContainerViews.setOnDragListener(dragListener);
@@ -133,14 +130,11 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
         }
 
         int widthContainer = metrics.widthPixels - (itemSize + 10);
-
         idImage = getImage((int) Math.floor(Math.random() * 8));
 
         for (int i = 1; i <= numberOfImages; i++) {
-
             int itemX = (int) (Math.random() * (widthContainer) + 10);
             int itemY = (int) (Math.random() * (((metrics.heightPixels / 3) * 2) - itemSize) + 10);
-
             View item = createItem(itemX, itemY, itemSize);
             lyContainerViews.addView(item);
         }

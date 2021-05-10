@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import com.janus.aprendiendoacontar.R;
 public class InicioFragment extends Fragment {
 
     private ImageButton btnJugar;
-    private ImageView ivTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,14 +32,7 @@ public class InicioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnJugar = view.findViewById(R.id.btnJugar);
-        ivTitle = view.findViewById(R.id.ivTitle);
 
-        btnJugar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_inicioFragment_to_menuFragment);
-            }
-        });
-
+        btnJugar.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_inicioFragment_to_menuFragment));
     }
 }

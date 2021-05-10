@@ -19,10 +19,10 @@ import java.util.Stack;
 
 public class CuantosHay implements Jugable {
 
-    Stack<Integer> cantidades = new Stack<Integer>();
-    Context context;
-    Sound sound;
-    Animal animal;
+    private Stack<Integer> cantidades = new Stack<Integer>();
+    private Context context;
+    private Sound sound;
+    private Animal animal;
     int intentosCorrectos = 0;
     int intentosIncorrectos = 0;
     private int cantidadActual;
@@ -120,14 +120,14 @@ public class CuantosHay implements Jugable {
         sound = new Sound(this.context);
         animal = new Animal();
 
-        int nCartas = 20;
+        int cantidadTope = 20;
 
         StringBuilder n = new StringBuilder();
-        int cantidad = (int) Math.floor(Math.random() * nCartas + 1);
-        for (int i = 0; i < nCartas; i++) {
+        int cantidad = (int) Math.floor(Math.random() * cantidadTope + 1);
+        for (int i = 0; i < cantidadTope; i++) {
             while (cantidades.contains(cantidad)) {
-                cantidad = (int) Math.floor(Math.random() * (nCartas) + 1);
-//                cantidad = (int) Math.floor(new Random().nextDouble() * nCartas + 1);
+                cantidad = (int) Math.floor(Math.random() * (cantidadTope) + 1);
+//                cantidad = (int) Math.floor(new Random().nextDouble() * cantidadTope + 1);
             }
             cantidades.push(cantidad);
             n.append("\n").append(cantidad);

@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Sound;
 import com.willy.ratingbar.ScaleRatingBar;
 
 public class FinActividadDialog extends DialogFragment implements View.OnClickListener {
@@ -52,13 +53,14 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
 
     private AlertDialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        new Sound(requireContext()).play(R.raw.win);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_fin_actividad, null);
         builder.setView(view);
 
         final ScaleRatingBar ratingBar = view.findViewById(R.id.rbStarts);
-        ratingBar.setEnabled(false);
+        ratingBar.setClickable(false);
         ratingBar.setRating(calcularPorcentaje());
 
         tvCorrectos = view.findViewById(R.id.tvCorrectos);

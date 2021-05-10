@@ -2,18 +2,30 @@ package com.janus.aprendiendoacontar.juego;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.graphics.Point;
+import android.os.Handler;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.navigation.Navigation;
-
+import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.BaseFragment;
 import com.janus.aprendiendoacontar.R;
+import com.janus.aprendiendoacontar.Utilities.Consts;
+import com.janus.aprendiendoacontar.Utilities.Recordar;
+import com.janus.aprendiendoacontar.Utilities.Sound;
+import com.janus.aprendiendoacontar.Utilities.UIAnimation;
+import com.janus.aprendiendoacontar.db.Actividad;
+import com.janus.aprendiendoacontar.db.DataBase;
+import com.janus.aprendiendoacontar.dialogos.FinActividadDialog;
 
-public class OrdenaFragment extends BaseFragment implements View.OnClickListener, View.OnLongClickListener {
+import java.util.Stack;
 
+public class OrdenaFragment extends BaseFragment implements View.OnClickListener, View.OnLongClickListener, Jugable {
+
+    private Stack<Integer> cantidades = new Stack<Integer>();
     private ImageButton btnBack;
     private ImageButton btnOk;
     private TextView tvNumero1;
@@ -21,13 +33,29 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
     private TextView tvNumero3;
     private TextView tvNumero4;
     private TextView tvNumero5;
+    private int cantidadActual;
+    private int[] numeros;
+    private Point[] posicionesBurbujas;
+    private int contador = 0;
+    private int correctos = 0;
+    private int incorrectos = 0;
+    private Sound sound;
+    private boolean pocicionesGuardadas = false;
 
-    private View.OnDragListener dragListener = new View.OnDragListener() {
+    private final View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
             switch (dragEvent.getAction()) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
+                    if (!pocicionesGuardadas) {
+                        posicionesBurbujas[0] = new Point((int) tvNumero1.getX(), (int) tvNumero1.getY());
+                        posicionesBurbujas[1] = new Point((int) tvNumero2.getX(), (int) tvNumero2.getY());
+                        posicionesBurbujas[2] = new Point((int) tvNumero3.getX(), (int) tvNumero3.getY());
+                        posicionesBurbujas[3] = new Point((int) tvNumero4.getX(), (int) tvNumero4.getY());
+                        posicionesBurbujas[4] = new Point((int) tvNumero5.getX(), (int) tvNumero5.getY());
+                        pocicionesGuardadas = true;
+                    }
                     return dragEvent.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN);
                 case DragEvent.ACTION_DRAG_ENTERED:
                 case DragEvent.ACTION_DRAG_EXITED:
@@ -35,29 +63,40 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
                     view.invalidate();
                     return true;
                 case DragEvent.ACTION_DRAG_LOCATION:
+
                     return true;
                 case DragEvent.ACTION_DROP:
                     view.invalidate();
                     View v = (View) dragEvent.getLocalState();
 
-                    //Remover elemento de su conteneror original
-                    TextView viewArratrado = (TextView) v;
-                    String numero1 = viewArratrado.getText().toString();
-
-                    //agregar elemento al destino
                     if (view.getId() == tvNumero1.getId() || view.getId() == tvNumero2.getId() ||
                             view.getId() == tvNumero3.getId() || view.getId() == tvNumero4.getId() ||
                             view.getId() == tvNumero5.getId()) {
 
+                        TextView viewArrastrado = (TextView) v;
                         TextView destination = (TextView) view;
-                        String numero2 = destination.getText().toString();
 
-                        viewArratrado.setText(numero2);
-                        destination.setText(numero1);
+                        int posicionArrastrado = 0;
+                        int posicionDestino = 0;
+                        int numeroArrastrado = Integer.parseInt(viewArrastrado.getText().toString());
+                        int numeroDestino = Integer.parseInt(destination.getText().toString());
+
+                        for (int i = 0; i < numeros.length; i++) {
+                            if (numeroArrastrado == numeros[i]) posicionArrastrado = i;
+                            if (numeroDestino == numeros[i]) posicionDestino = i;
+                        }
+
+                        numeros[posicionArrastrado] = numeroDestino;
+                        numeros[posicionDestino] = numeroArrastrado;
+
+                        cambiarPosicion(viewArrastrado, destination);
+
+                        StringBuffer num = new StringBuffer();
+                        for (int n : numeros) {
+                            num.append(n + " - ");
+                        }
+                        Toast.makeText(mContext, num, Toast.LENGTH_LONG).show();
                     }
-
-
-                    v.setVisibility(View.VISIBLE);
                     return true;
                 default:
                     return false;
@@ -67,10 +106,12 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void initUI(View view) {
+        sound = new Sound(requireContext());
+        numeros = new int[5];
+        posicionesBurbujas = new Point[5];
+
         btnBack = view.findViewById(R.id.btnAtrasOrdena);
-        btnBack.setOnClickListener(this);
         btnOk = view.findViewById(R.id.btnOkOrdena);
-        btnOk.setOnClickListener(this);
 
         tvNumero1 = view.findViewById(R.id.tvNumero1);
         tvNumero1.setOnDragListener(dragListener);
@@ -91,6 +132,28 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         tvNumero5 = view.findViewById(R.id.tvNumero5);
         tvNumero5.setOnDragListener(dragListener);
         tvNumero5.setOnLongClickListener(this);
+
+        int cantidadTope = 15;
+
+        int cantidad = (int) Math.floor(Math.random() * cantidadTope + 1);
+        for (int i = 0; i < cantidadTope; i++) {
+            while (cantidades.contains(cantidad)) {
+                cantidad = (int) Math.floor(Math.random() * (cantidadTope) + 1);
+            }
+            cantidades.push(cantidad);
+        }
+
+        posicionesBurbujas[0] = new Point((int) tvNumero1.getX(), (int) tvNumero1.getY());
+        posicionesBurbujas[1] = new Point((int) tvNumero2.getX(), (int) tvNumero2.getY());
+        posicionesBurbujas[2] = new Point((int) tvNumero3.getX(), (int) tvNumero3.getY());
+        posicionesBurbujas[3] = new Point((int) tvNumero4.getX(), (int) tvNumero4.getY());
+        posicionesBurbujas[4] = new Point((int) tvNumero5.getX(), (int) tvNumero5.getY());
+
+        desordenarNumeros();
+
+        btnBack.setOnClickListener(this);
+        btnOk.setOnClickListener(this);
+        view.setOnDragListener(dragListener);
     }
 
     @Override
@@ -103,9 +166,34 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         int id = v.getId();
 
         if (id == btnBack.getId()) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_ordenaFragment_to_menuFragment);
+            finish(requireView(), correctos, incorrectos);
         } else if (id == btnOk.getId()) {
 
+            if (!pocicionesGuardadas) {
+                posicionesBurbujas[0] = new Point((int) tvNumero1.getX(), (int) tvNumero1.getY());
+                posicionesBurbujas[1] = new Point((int) tvNumero2.getX(), (int) tvNumero2.getY());
+                posicionesBurbujas[2] = new Point((int) tvNumero3.getX(), (int) tvNumero3.getY());
+                posicionesBurbujas[3] = new Point((int) tvNumero4.getX(), (int) tvNumero4.getY());
+                posicionesBurbujas[4] = new Point((int) tvNumero5.getX(), (int) tvNumero5.getY());
+                pocicionesGuardadas = true;
+            }
+
+            boolean ordenados = true;
+            for (int i = 0; i < numeros.length - 1; i++) {
+                if (numeros[i] > numeros[i + 1]) {
+                    ordenados = false;
+                    break;
+                }
+            }
+
+            if (ordenados) correcto();
+            else incorrecto();
+
+            if (contador < 14) {
+                new Handler().postDelayed(this::colocarNumeros, 500);
+            } else {
+                finish(requireView(), correctos, incorrectos);
+            }
         }
     }
 
@@ -116,10 +204,126 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
         ClipData data = new ClipData(clipText, mimeTypes, item);
         View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(v);
-        v.startDragAndDrop(data, dragShadowBuilder, v, View.DRAG_FLAG_OPAQUE);
-        v.setVisibility(View.INVISIBLE);
+        v.startDragAndDrop(data, dragShadowBuilder, v, View.DRAG_FLAG_GLOBAL);
+//        v.setVisibility(View.INVISIBLE);
         return true;
     }
 
+    private void desordenarNumeros() {
+        cantidadActual = cantidades.get(contador);
+
+        Stack<Integer> posiciones = new Stack<Integer>();
+
+        numeros[0] = cantidadActual;
+        numeros[1] = cantidadActual + 1;
+        numeros[2] = cantidadActual + 2;
+        numeros[3] = cantidadActual + 3;
+        numeros[4] = cantidadActual + 4;
+
+        int cantidadTope = 5;
+        int cantidad = (int) Math.floor(Math.random() * cantidadTope);
+        for (int i = 0; i < cantidadTope; i++) {
+            while (posiciones.contains(cantidad)) {
+                cantidad = (int) Math.floor(Math.random() * (cantidadTope));
+            }
+            posiciones.push(cantidad);
+        }
+
+        tvNumero1.setText(String.valueOf(numeros[posiciones.get(0)]));
+        tvNumero2.setText(String.valueOf(numeros[posiciones.get(1)]));
+        tvNumero3.setText(String.valueOf(numeros[posiciones.get(2)]));
+        tvNumero4.setText(String.valueOf(numeros[posiciones.get(3)]));
+        tvNumero5.setText(String.valueOf(numeros[posiciones.get(4)]));
+
+        sound.play(R.raw.ordena);
+
+        numeros[0] = Integer.parseInt(tvNumero1.getText().toString());
+        numeros[1] = Integer.parseInt(tvNumero2.getText().toString());
+        numeros[2] = Integer.parseInt(tvNumero3.getText().toString());
+        numeros[3] = Integer.parseInt(tvNumero4.getText().toString());
+        numeros[4] = Integer.parseInt(tvNumero5.getText().toString());
+
+        StringBuffer num = new StringBuffer();
+        for (int n : numeros) {
+            num.append(n + " - ");
+        }
+        Toast.makeText(mContext, num, Toast.LENGTH_LONG).show();
+        posiciones = null;
+    }
+
+    @Override
+    public void correcto() {
+        sound.play(R.raw.correcto);
+        correctos++;
+    }
+
+    @Override
+    public void incorrecto() {
+        sound.play(R.raw.error);
+        incorrectos++;
+    }
+
+    @Override
+    public void finish(View viewDestino, int correctos, int incorrectos) {
+        DataBase db = DataBase.getInstance(requireContext());
+        Actividad act = new Actividad();
+        act.ejerciciosCorrectos = correctos;
+        act.ejerciciosIncorrectos = incorrectos;
+        act.nombre = Consts.ORDENA;
+
+        db.getActividad().Insertar(act);
+
+        Recordar.recordarActividad(requireContext(), Consts.KEY_ORDENA, correctos);
+
+        showDialog(viewDestino, correctos, Consts.ORDENA);
+    }
+
+    public void showDialog(View view, int correctos, String destino) {
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        dialog.show(((BaseActivity) requireContext()).getSupportFragmentManager(), null);
+    }
+
+    private void cambiarPosicion(View view, View viewDestino) {
+        btnOk.setEnabled(false);
+        int duracion = 500;
+        float desplazamiento = 0;
+        view.bringToFront();
+        viewDestino.bringToFront();
+
+        desplazamiento = view.getX() - viewDestino.getX();
+        view.animate().translationXBy(desplazamiento - (desplazamiento * 2)).setDuration(duracion).setStartDelay(0);
+        viewDestino.animate().translationXBy(desplazamiento).setDuration(duracion).setStartDelay(0);
+        new Handler().postDelayed(() -> btnOk.setEnabled(true), 510);
+    }
+
+    private void colocarNumeros() {
+        tvNumero1.setX(posicionesBurbujas[0].x);
+        tvNumero1.setY(posicionesBurbujas[0].y);
+        tvNumero2.setX(posicionesBurbujas[1].x);
+        tvNumero2.setY(posicionesBurbujas[1].y);
+        tvNumero3.setX(posicionesBurbujas[2].x);
+        tvNumero3.setY(posicionesBurbujas[2].y);
+        tvNumero4.setX(posicionesBurbujas[3].x);
+        tvNumero4.setY(posicionesBurbujas[3].y);
+        tvNumero5.setX(posicionesBurbujas[4].x);
+        tvNumero5.setY(posicionesBurbujas[4].y);
+
+        UIAnimation.onScaleZoomOut(requireContext(), tvNumero1);
+        UIAnimation.onScaleZoomOut(requireContext(), tvNumero2);
+        UIAnimation.onScaleZoomOut(requireContext(), tvNumero3);
+        UIAnimation.onScaleZoomOut(requireContext(), tvNumero4);
+        UIAnimation.onScaleZoomOut(requireContext(), tvNumero5);
+
+        new Handler().postDelayed(() -> {
+            contador++;
+            desordenarNumeros();
+        }, 100);
+
+        UIAnimation.onScaleZoomIn(requireContext(), tvNumero1);
+        UIAnimation.onScaleZoomIn(requireContext(), tvNumero2);
+        UIAnimation.onScaleZoomIn(requireContext(), tvNumero3);
+        UIAnimation.onScaleZoomIn(requireContext(), tvNumero4);
+        UIAnimation.onScaleZoomIn(requireContext(), tvNumero5);
+    }
 
 }

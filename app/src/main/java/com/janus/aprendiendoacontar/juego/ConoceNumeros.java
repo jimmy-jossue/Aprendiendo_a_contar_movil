@@ -33,11 +33,20 @@ public class ConoceNumeros implements Jugable {
     @Override
     public void finish(View view, int correctos, int incorrectos) {
         DataBase db = DataBase.getInstance(context);
-        Actividad act = new Actividad();
-        act.ejerciciosCorrectos = correctos;
-        act.ejerciciosIncorrectos = incorrectos;
-        act.nombre = Consts.CONOCE;
-        db.getActividad().Insertar(act);
+
+        int correctosAnteriores = 0;
+        try {
+            correctosAnteriores = db.getActividad().buscarPorNombre(Consts.CONOCE).ejerciciosCorrectos;
+        } catch (Exception ex) {
+            correctosAnteriores = 0;
+        }
+        if (correctosAnteriores < correctos) {
+            Actividad act = new Actividad();
+            act.ejerciciosCorrectos = correctos;
+            act.ejerciciosIncorrectos = incorrectos;
+            act.nombre = Consts.CONOCE;
+            db.getActividad().Insertar(act);
+        }
         Recordar.recordarActividad(context, Consts.KEY_CONOCE, correctos);
 
         showDialog(view, correctos, Consts.CONOCE);
