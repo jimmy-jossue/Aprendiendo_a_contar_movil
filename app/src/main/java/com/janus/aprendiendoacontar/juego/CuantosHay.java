@@ -266,7 +266,7 @@ public class CuantosHay implements Jugable {
     }
 
     public void showDialog(View view, int correctos, String destino) {
-        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 20);
         dialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
     }
 

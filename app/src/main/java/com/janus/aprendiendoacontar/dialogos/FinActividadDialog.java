@@ -25,14 +25,17 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
     private ImageButton btnVolverMenu;
     private ImageButton btnReitentar;
     private TextView tvCorrectos;
+    private TextView tvTotal;
     private int correctos = 0;
+    private int total = 0;
     private View view;
     private String destino;
 
-    public FinActividadDialog(View view, int correctos, String destino) {
+    public FinActividadDialog(View view, int correctos, String destino, int total) {
         this.correctos = correctos;
         this.view = view;
         this.destino = destino;
+        this.total = total;
     }
 
     public View obtenerVistaDestino() {
@@ -62,6 +65,9 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         final ScaleRatingBar ratingBar = view.findViewById(R.id.rbStarts);
         ratingBar.setClickable(false);
         ratingBar.setRating(calcularPorcentaje());
+
+        tvTotal = view.findViewById(R.id.tvTotal);
+        tvTotal.setText(String.valueOf(total));
 
         tvCorrectos = view.findViewById(R.id.tvCorrectos);
         tvCorrectos.setText(String.valueOf(correctos));
@@ -101,7 +107,7 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
     }
 
     private float calcularPorcentaje() {
-        float porcentaje = (correctos * 100) / 20;
+        float porcentaje = (correctos * 100) / total;
 
         float porcionEstrellas = 0F;
         if (porcentaje == 100) porcionEstrellas = 3F;

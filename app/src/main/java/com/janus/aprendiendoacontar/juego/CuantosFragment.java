@@ -102,14 +102,29 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         final Handler handler = new Handler();
         handler.postDelayed(
                 () -> {
+                    int minDistractor = 0;
+                    int maxDistractor = 0;
                     int posRespuesta = (int) Math.floor(Math.random() * 3);
                     int distractor1;
                     int distractor2;
+
+                    if (cantidad <= 2) {
+                        minDistractor = cantidad;
+                        maxDistractor = cantidad + 5;
+                    } else if (cantidad <= 18) {
+                        minDistractor = cantidad - 2;
+                        maxDistractor = cantidad + 2;
+                    } else {
+                        minDistractor = cantidad - 5;
+                        maxDistractor = cantidad;
+                    }
+
                     do {
-                        distractor1 = (int) Math.floor(Math.random() * 20 + 1);
+                        distractor1 = generaNumeroAleatorio(minDistractor, maxDistractor);
                     } while (distractor1 == cantidad);
                     do {
-                        distractor2 = (int) Math.floor(Math.random() * 20 + 1);
+                        distractor2 = generaNumeroAleatorio(minDistractor, maxDistractor);
+
                     } while (distractor2 == cantidad || distractor2 == distractor1);
 
 
@@ -137,5 +152,11 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         UIAnimation.onScaleZoomOut(requireContext(), tvOpcion1);
         UIAnimation.onScaleZoomOut(requireContext(), tvOpcion2);
         UIAnimation.onScaleZoomOut(requireContext(), tvOpcion3);
+    }
+
+    private int generaNumeroAleatorio(int minimo, int maximo) {
+
+        int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
+        return num;
     }
 }

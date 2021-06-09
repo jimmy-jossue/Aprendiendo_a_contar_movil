@@ -18,11 +18,11 @@ import com.janus.aprendiendoacontar.db.Usuario;
 import com.janus.aprendiendoacontar.db.UsuarioDao;
 import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 
-
 public class MenuFragment extends BaseFragment implements View.OnClickListener, Observer {
 
     SharedPreferences preferences;
     private ImageButton btnSalir;
+    private ImageButton btnAcercaDe;
     private ImageButton btnPerfil;
     private ImageButton btnConoce;
     private ImageButton btnCuantos;
@@ -36,6 +36,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         btnSalir.setOnClickListener(this);
         btnPerfil = view.findViewById(R.id.btnPerfilMenu);
         btnPerfil.setOnClickListener(this);
+        btnAcercaDe = view.findViewById(R.id.btnAcercaDe);
+        btnAcercaDe.setOnClickListener(this);
         btnConoce = view.findViewById(R.id.btnConoce);
         btnConoce.setOnClickListener(this);
         btnCuantos = view.findViewById(R.id.btnCuantos);
@@ -66,6 +68,8 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         if (id == btnSalir.getId()) System.exit(0);
         else if (id == btnPerfil.getId())
             irAFragment(v, R.id.action_menuFragment_to_progressFragment);
+        else if (id == btnAcercaDe.getId())
+            irAFragment(v, R.id.action_menuFragment_to_acercaDeFragment);
         else if (id == btnConoce.getId())
             irAFragment(v, R.id.action_menuFragment_to_conoceFragment);
         else if (id == btnCuantos.getId())
@@ -126,7 +130,7 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
                 btnArrastra.setImageResource(R.drawable.btn_menu_arrastra);
                 btnArrastra.setEnabled(true);
 
-                if (avancesArrastra > 10) {
+                if (avancesArrastra >= 10) {
                     btnOrdena.setImageResource(R.drawable.btn_menu_ordena);
                     btnOrdena.setEnabled(true);
                 }

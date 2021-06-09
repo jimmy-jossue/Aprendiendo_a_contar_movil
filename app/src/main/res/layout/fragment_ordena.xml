@@ -142,8 +142,8 @@
 
     <ImageButton
         android:id="@+id/btnAtrasOrdena"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_margin="@dimen/_8sdp"
         android:background="@drawable/ic_atras"
         app:layout_constraintStart_toStartOf="parent"

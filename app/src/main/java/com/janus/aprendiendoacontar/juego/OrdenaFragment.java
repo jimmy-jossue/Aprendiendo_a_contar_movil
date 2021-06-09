@@ -8,7 +8,6 @@ import android.view.DragEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.BaseFragment;
@@ -95,7 +94,6 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
                         for (int n : numeros) {
                             num.append(n + " - ");
                         }
-                        Toast.makeText(mContext, num, Toast.LENGTH_LONG).show();
                     }
                     return true;
                 default:
@@ -133,7 +131,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         tvNumero5.setOnDragListener(dragListener);
         tvNumero5.setOnLongClickListener(this);
 
-        int cantidadTope = 15;
+        int cantidadTope = 16;
 
         int cantidad = (int) Math.floor(Math.random() * cantidadTope + 1);
         for (int i = 0; i < cantidadTope; i++) {
@@ -150,7 +148,6 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         posicionesBurbujas[4] = new Point((int) tvNumero5.getX(), (int) tvNumero5.getY());
 
         desordenarNumeros();
-
         btnBack.setOnClickListener(this);
         btnOk.setOnClickListener(this);
         view.setOnDragListener(dragListener);
@@ -189,11 +186,8 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
             if (ordenados) correcto();
             else incorrecto();
 
-            if (contador < 14) {
-                new Handler().postDelayed(this::colocarNumeros, 500);
-            } else {
-                finish(requireView(), correctos, incorrectos);
-            }
+            if (contador < 15) new Handler().postDelayed(this::colocarNumeros, 500);
+            else finish(requireView(), correctos, incorrectos);
         }
     }
 
@@ -205,13 +199,11 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         ClipData data = new ClipData(clipText, mimeTypes, item);
         View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(v);
         v.startDragAndDrop(data, dragShadowBuilder, v, View.DRAG_FLAG_GLOBAL);
-//        v.setVisibility(View.INVISIBLE);
         return true;
     }
 
     private void desordenarNumeros() {
         cantidadActual = cantidades.get(contador);
-
         Stack<Integer> posiciones = new Stack<Integer>();
 
         numeros[0] = cantidadActual;
@@ -235,19 +227,13 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         tvNumero4.setText(String.valueOf(numeros[posiciones.get(3)]));
         tvNumero5.setText(String.valueOf(numeros[posiciones.get(4)]));
 
-        sound.play(R.raw.ordena);
-
         numeros[0] = Integer.parseInt(tvNumero1.getText().toString());
         numeros[1] = Integer.parseInt(tvNumero2.getText().toString());
         numeros[2] = Integer.parseInt(tvNumero3.getText().toString());
         numeros[3] = Integer.parseInt(tvNumero4.getText().toString());
         numeros[4] = Integer.parseInt(tvNumero5.getText().toString());
 
-        StringBuffer num = new StringBuffer();
-        for (int n : numeros) {
-            num.append(n + " - ");
-        }
-        Toast.makeText(mContext, num, Toast.LENGTH_LONG).show();
+        sound.play(R.raw.ordena);
         posiciones = null;
     }
 
@@ -272,14 +258,12 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         act.nombre = Consts.ORDENA;
 
         db.getActividad().Insertar(act);
-
         Recordar.recordarActividad(requireContext(), Consts.KEY_ORDENA, correctos);
-
         showDialog(viewDestino, correctos, Consts.ORDENA);
     }
 
     public void showDialog(View view, int correctos, String destino) {
-        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 15);
         dialog.show(((BaseActivity) requireContext()).getSupportFragmentManager(), null);
     }
 

@@ -52,6 +52,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
 
             if (numero == 20) {
                 ivCantidad.setEnabled(false);
+                btnAtras.setEnabled(false);
                 new Handler().postDelayed(
                         () -> conoce.finish(requireView(), numero, 0)
                         , 1500);

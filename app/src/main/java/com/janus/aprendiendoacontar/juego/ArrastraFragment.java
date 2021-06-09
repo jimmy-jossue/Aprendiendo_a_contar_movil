@@ -2,7 +2,7 @@ package com.janus.aprendiendoacontar.juego;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.util.DisplayMetrics;
+import android.os.Handler;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.janus.aprendiendoacontar.BaseActivity;
 import com.janus.aprendiendoacontar.BaseFragment;
@@ -24,6 +23,8 @@ import com.janus.aprendiendoacontar.db.Actividad;
 import com.janus.aprendiendoacontar.db.DataBase;
 import com.janus.aprendiendoacontar.dialogos.FinActividadDialog;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 public class ArrastraFragment extends BaseFragment implements Jugable, View.OnClickListener {
@@ -33,13 +34,18 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
     AbsoluteLayout lyDestino;
     int indice, cantidadActual;
     int idImage;
+    private final String TORTUGA = "tortuga";
     private ImageButton btnAtras;
     private ImageButton btnOk;
     private TextView tvCantidadEnCofre;
     int correctos = 0;
     int incorrectos = 0;
-
-    private View.OnDragListener dragListener = new View.OnDragListener() {
+    private final String PULPO = "pulpo";
+    private final String CANGREJO = "cangrejo";
+    private final String CABALLITO = "caballito";
+    private final String ESTRELLA = "estrella";
+    private final String PEZ = "pez";
+    private final View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View view, DragEvent dragEvent) {
             switch (dragEvent.getAction()) {
@@ -82,6 +88,70 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
             }
         }
     };
+    private ImageButton btnPregunta;
+    private String animal = "";
+    private List<Integer> tortugas = Arrays.asList(
+            R.raw.arrastra_1_tortuga,
+            R.raw.arrastra_2_tortugas,
+            R.raw.arrastra_3_tortugas,
+            R.raw.arrastra_4_tortugas,
+            R.raw.arrastra_5_tortugas,
+            R.raw.arrastra_6_tortugas,
+            R.raw.arrastra_7_tortugas,
+            R.raw.arrastra_8_tortugas
+    );
+    private List<Integer> cangrejos = Arrays.asList(
+            R.raw.arrastra_1_cangrejo,
+            R.raw.arrastra_2_cangrejos,
+            R.raw.arrastra_3_cangrejos,
+            R.raw.arrastra_4_cangrejos,
+            R.raw.arrastra_5_cangrejos,
+            R.raw.arrastra_6_cangrejos,
+            R.raw.arrastra_7_cangrejos,
+            R.raw.arrastra_8_cangrejos
+    );
+    private List<Integer> pulpos = Arrays.asList(
+            R.raw.arrastra_1_pulpo,
+            R.raw.arrastra_2_pulpos,
+            R.raw.arrastra_3_pulpos,
+            R.raw.arrastra_4_pulpos,
+            R.raw.arrastra_5_pulpos,
+            R.raw.arrastra_6_pulpos,
+            R.raw.arrastra_7_pulpos,
+            R.raw.arrastra_8_pulpos
+    );
+    private List<Integer> caballitos = Arrays.asList(
+            R.raw.arrastra_9_caballitos,
+            R.raw.arrastra_10_caballitos,
+            R.raw.arrastra_11_caballitos,
+            R.raw.arrastra_12_caballitos,
+            R.raw.arrastra_13_caballitos,
+            R.raw.arrastra_14_caballitos,
+            R.raw.arrastra_15_caballitos
+    );
+    private List<Integer> estrellas = Arrays.asList(
+            R.raw.arrastra_9_estrellas,
+            R.raw.arrastra_10_estrellas,
+            R.raw.arrastra_11_estrellas,
+            R.raw.arrastra_12_estrellas,
+            R.raw.arrastra_13_estrellas,
+            R.raw.arrastra_14_estrellas,
+            R.raw.arrastra_15_estrellas
+    );
+    private List<Integer> peces = Arrays.asList(
+            R.raw.arrastra_9_peces,
+            R.raw.arrastra_10_peces,
+            R.raw.arrastra_11_peces,
+            R.raw.arrastra_12_peces,
+            R.raw.arrastra_13_peces,
+            R.raw.arrastra_14_peces,
+            R.raw.arrastra_15_peces,
+            R.raw.arrastra_16_peces,
+            R.raw.arrastra_17_peces,
+            R.raw.arrastra_18_peces,
+            R.raw.arrastra_19_peces,
+            R.raw.arrastra_20_peces
+    );
 
     @Override
     public void initUI(View view) {
@@ -95,6 +165,8 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
 
         btnAtras = view.findViewById(R.id.btnAtrasArrastra);
         btnAtras.setOnClickListener(this);
+        btnPregunta = view.findViewById(R.id.btnPreguntaArrastra);
+        btnPregunta.setOnClickListener(this);
         btnOk = view.findViewById(R.id.btnOkArrastra);
         btnOk.setOnClickListener(this);
 
@@ -105,7 +177,7 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
         lyDestino.setOnDragListener(dragListener);
         view.setOnDragListener(dragListener);
 
-        DibujarFiguras();
+        lyContainerViews.post(this::DibujarFiguras);
     }
 
     @Override
@@ -114,11 +186,9 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
     }
 
     private void DibujarFiguras() {
-        Toast.makeText(requireContext(), cantidadActual + "", Toast.LENGTH_SHORT).show();
         int numerosDeMas = (int) Math.floor(Math.random() * 4 + 1);
         int numberOfImages = cantidadActual + numerosDeMas;
 
-        DisplayMetrics metrics = requireContext().getResources().getDisplayMetrics();
         int itemSize;
 
         if (numberOfImages < 6) {
@@ -129,15 +199,17 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
             itemSize = (int) getResources().getDimension(R.dimen.img_small_size);
         }
 
-        int widthContainer = metrics.widthPixels - (itemSize + 10);
-        idImage = getImage((int) Math.floor(Math.random() * 8));
+        int widthContainer = lyContainerViews.getMeasuredWidth();
+        int heightContainer = lyContainerViews.getMeasuredHeight();
+        idImage = getImage();
 
         for (int i = 1; i <= numberOfImages; i++) {
-            int itemX = (int) (Math.random() * (widthContainer) + 10);
-            int itemY = (int) (Math.random() * (((metrics.heightPixels / 3) * 2) - itemSize) + 10);
+            int itemX = generaNumeroAleatorio(10, widthContainer - itemSize);
+            int itemY = generaNumeroAleatorio(10, heightContainer - itemSize);
             View item = createItem(itemX, itemY, itemSize);
             lyContainerViews.addView(item);
         }
+        new Sound(requireContext()).play(getAudio(animal));
     }
 
     public ImageView createItem(int x, int y, int itemSize) {
@@ -164,39 +236,105 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
         return ivItem;
     }
 
-    public int getImage(int numero) {
+    public int getImage() {
         int idImage = 0;
-        switch (numero) {
-            case 0:
-                idImage = R.drawable.img_tortuga;
-                break;
-            case 1:
-                idImage = R.drawable.img_pulpo_a;
-                break;
-            case 2:
-                idImage = R.drawable.img_pulpo_m;
-                break;
-            case 3:
-                idImage = R.drawable.img_caballito;
-                break;
-            case 4:
-                idImage = R.drawable.img_estrella;
-                break;
-            case 5:
-                idImage = R.drawable.img_cangrejo;
-                break;
-            case 6:
-                idImage = R.drawable.img_pez_am;
-                break;
-            case 7:
-                idImage = R.drawable.img_pez_az;
-                break;
-            default:
-                idImage = R.drawable.img_pez_globo;
-                break;
+        int random = 0;
+
+        if (cantidadActual >= 0 && cantidadActual < 9) {
+            random = generaNumeroAleatorio(0, 3);
+            switch (random) {
+                case 0:
+                    idImage = R.drawable.img_tortuga;
+                    animal = TORTUGA;
+                    break;
+                case 1:
+                    idImage = R.drawable.img_pulpo_a;
+                    animal = PULPO;
+                    break;
+                case 2:
+                    idImage = R.drawable.img_pulpo_m;
+                    animal = PULPO;
+                    break;
+                case 3:
+                    idImage = R.drawable.img_cangrejo;
+                    animal = CANGREJO;
+                    break;
+            }
+
+        } else if (cantidadActual > 8 && cantidadActual < 16) {
+            random = generaNumeroAleatorio(0, 4);
+            switch (random) {
+                case 0:
+                    idImage = R.drawable.img_caballito;
+                    animal = CABALLITO;
+                    break;
+                case 1:
+                    idImage = R.drawable.img_estrella;
+                    animal = ESTRELLA;
+                    break;
+                case 2:
+                    idImage = R.drawable.img_pez_am;
+                    animal = PEZ;
+                    break;
+                case 3:
+                    idImage = R.drawable.img_pez_az;
+                    animal = PEZ;
+                    break;
+                case 4:
+                    idImage = R.drawable.img_pez_globo;
+                    animal = PEZ;
+                    break;
+            }
+
+        } else if (cantidadActual > 15 && cantidadActual <= 20) {
+            random = generaNumeroAleatorio(0, 2);
+            switch (random) {
+                case 0:
+                    idImage = R.drawable.img_pez_globo;
+                    break;
+                case 1:
+                    idImage = R.drawable.img_pez_am;
+                    break;
+                case 2:
+                    idImage = R.drawable.img_pez_az;
+                    break;
+            }
+            animal = PEZ;
         }
         return idImage;
     }
+
+    private int generaNumeroAleatorio(int minimo, int maximo) {
+
+        int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
+        return num;
+    }
+
+    private int getAudio(String animal) {
+        int idAudio = 0;
+        switch (animal) {
+            case TORTUGA:
+                idAudio = tortugas.get(cantidadActual - 1);
+                break;
+            case PULPO:
+                idAudio = pulpos.get(cantidadActual - 1);
+                break;
+            case CANGREJO:
+                idAudio = cangrejos.get(cantidadActual - 1);
+                break;
+            case CABALLITO:
+                idAudio = caballitos.get(cantidadActual - 9);
+                break;
+            case ESTRELLA:
+                idAudio = estrellas.get(cantidadActual - 9);
+                break;
+            case PEZ:
+                idAudio = peces.get(cantidadActual - 9);
+                break;
+        }
+        return idAudio;
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -205,20 +343,23 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
         if (id == btnAtras.getId()) {
             finish(requireView(), correctos, incorrectos);
 
+        } else if (id == btnPregunta.getId()) {
+            new Sound(requireContext()).play(getAudio(animal));
+
         } else if (id == btnOk.getId()) {
             indice++;
-
             if (lyDestino.getChildCount() == cantidadActual) correcto();
             else incorrecto();
 
             if (indice < cantidades.size()) {
                 cantidadActual = cantidades.get(indice);
                 limpiar();
-                DibujarFiguras();
+                new Handler().postDelayed(
+                        this::DibujarFiguras
+                        , 800);
             } else {
                 finish(requireView(), correctos, incorrectos);
             }
-
         }
     }
 
@@ -228,7 +369,6 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
         tvCantidadEnCofre.setText("0");
         btnOk.setVisibility(View.INVISIBLE);
     }
-
 
     @Override
     public void correcto() {
@@ -258,7 +398,7 @@ public class ArrastraFragment extends BaseFragment implements Jugable, View.OnCl
     }
 
     public void showDialog(View view, int correctos, String destino) {
-        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino);
+        FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 20);
         dialog.show(((BaseActivity) requireContext()).getSupportFragmentManager(), null);
     }
 }

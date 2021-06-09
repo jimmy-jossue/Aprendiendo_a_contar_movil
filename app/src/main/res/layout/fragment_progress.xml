@@ -270,7 +270,7 @@
             android:background="#f5f5f5"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Arrastra los elemmentos"
+            android:text="Arrastra los elementos"
             android:textAlignment="center"
             android:textColor="#24313E"
             android:textSize="@dimen/_16ssp" />

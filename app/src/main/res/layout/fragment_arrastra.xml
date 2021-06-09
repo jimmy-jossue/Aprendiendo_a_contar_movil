@@ -7,11 +7,26 @@
     android:background="@drawable/bg_under_sea"
     tools:context=".juego.ArrastraFragment">
 
+    <TextView
+        android:id="@+id/tvCantidadEnCofre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:gravity="center"
+        android:shadowColor="@color/black"
+        android:shadowRadius="15"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_95ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <AbsoluteLayout
         android:id="@+id/lyContainerViews"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         app:layout_constraintBottom_toTopOf="@+id/lyDestino"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,29 +42,22 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvCantidadEnCofre"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:gravity="center"
-        android:shadowColor="@color/black"
-        android:shadowRadius="8"
-        android:text="0"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_65ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
     <ImageButton
         android:id="@+id/btnAtrasArrastra"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_55sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_margin="@dimen/_8sdp"
         android:background="@drawable/ic_atras"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnPreguntaArrastra"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/ic_sound"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
