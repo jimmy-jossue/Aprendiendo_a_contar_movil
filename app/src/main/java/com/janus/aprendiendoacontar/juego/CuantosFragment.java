@@ -34,6 +34,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         tvOpcion2 = view.findViewById(R.id.tvOpcion2);
         tvOpcion3 = view.findViewById(R.id.tvOpcion3);
 
+        //Se agregan los eventos a los botones de la interfaz
         ivCantidad.setOnClickListener(this);
         tvOpcion1.setOnClickListener(this);
         tvOpcion2.setOnClickListener(this);
@@ -46,6 +47,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         formularPregunta();
     }
 
+    //Evento click de los elementos de la interfaz de usuario
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -58,32 +60,28 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+    //Metodo para evaluar la respuuesta de la actividad cuantos hay
     private void Evaluarrespuesta(View view) {
         TextView res = (TextView) view;
         String posibleRespuesta = res.getText().toString();
 
-        if (Integer.parseInt(posibleRespuesta) == cuantos.getCantidadActual()) {
+        if (Integer.parseInt(posibleRespuesta) == cuantos.getCantidadActual())
             cuantos.correcto();
-        } else {
-            cuantos.incorrecto();
-        }
+        else cuantos.incorrecto();
 
         tvOpcion1.setEnabled(false);
         tvOpcion2.setEnabled(false);
         tvOpcion3.setEnabled(false);
         cuantos.siguienteNumero();
-        final Handler handler = new Handler();
-        handler.postDelayed(
-                () -> {
-                    if (cuantos.getContador() < 20) {
-                        formularPregunta();
-                    } else {
-                        cuantos.finish(requireView(), cuantos.intentosCorrectos, cuantos.intentosIncorrectos);
-                    }
-                }
-                , 500);
-    }
 
+        //Si hay mas numeros se formula otra pregunta y si no, se finaliza la actividad
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            if (cuantos.getContador() < 20) formularPregunta();
+            else
+                cuantos.finish(requireView(), cuantos.intentosCorrectos, cuantos.intentosIncorrectos);
+        }, 500);
+    }
 
     private void formularPregunta() {
         tvOpcion1.setEnabled(true);
@@ -108,6 +106,7 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                     int distractor1;
                     int distractor2;
 
+                    //Se establen los limites de rango de los distractores
                     if (cantidad <= 2) {
                         minDistractor = cantidad;
                         maxDistractor = cantidad + 5;
@@ -119,15 +118,15 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
                         maxDistractor = cantidad;
                     }
 
+                    //se generan numeros aleatorios para los distractores
                     do {
                         distractor1 = generaNumeroAleatorio(minDistractor, maxDistractor);
                     } while (distractor1 == cantidad);
                     do {
                         distractor2 = generaNumeroAleatorio(minDistractor, maxDistractor);
-
                     } while (distractor2 == cantidad || distractor2 == distractor1);
 
-
+                    //Se colocan los distractores en las burbujas (opciones) de manera aleatoria
                     switch (posRespuesta) {
                         case 0:
                             tvOpcion1.setText(String.valueOf(cantidad));
@@ -154,8 +153,8 @@ public class CuantosFragment extends BaseFragment implements View.OnClickListene
         UIAnimation.onScaleZoomOut(requireContext(), tvOpcion3);
     }
 
+    //Genera un numero aleatorio
     private int generaNumeroAleatorio(int minimo, int maximo) {
-
         int num = (int) Math.floor(Math.random() * (maximo - minimo + 1) + (minimo));
         return num;
     }

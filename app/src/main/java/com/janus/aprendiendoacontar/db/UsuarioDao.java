@@ -9,18 +9,20 @@ import java.util.List;
 
 @Dao
 public interface UsuarioDao {
+
+    //Retorna un objeto de tipo Usuario
     @Query("SELECT * FROM Usuario WHERE id = :id LIMIT 1")
     Usuario obtenerporId(int id);
 
+    //Retorna una lista de objetos de tipo Usuario
     @Query("SELECT * FROM usuario")
     List<Usuario> obtenerTodos();
 
-//    @Query("SELECT * FROM usuario WHERE id IN (:usuarioIds)")
-//    List<Usuario> loadAllByIds(int[] usuarioIds);
-
+    //Retorna un objeto de tipo Usuario
     @Query("SELECT * FROM Usuario WHERE nombre = :nombre LIMIT 1")
     Usuario buscarPorNombre(String nombre);
 
+    //Retorna el id del Usuario que se inserte
     @Insert
     long Insertar(Usuario usuario);
 

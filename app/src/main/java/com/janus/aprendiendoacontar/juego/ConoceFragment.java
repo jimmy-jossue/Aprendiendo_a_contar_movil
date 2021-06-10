@@ -23,7 +23,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
     final String SIGUIENTE = "siguiente";
     private float firstTouchX;
     private ConoceNumeros conoce;
-    int numero = 1;
+    private int numero = 1;
     final String ANTERIOR = "anterior";
     private ImageView ivCantidad;
     private Sound sound;
@@ -38,6 +38,7 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         return inflater.inflate(R.layout.fragment_conoce, container, false);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,6 +47,8 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         ImageButton btnAtras = view.findViewById(R.id.btnAtras);
         conoce = new ConoceNumeros(requireContext());
 
+        //Si este fragment tiene argumentos se obtienen y dependiendo de este
+        //se crea la vista de cierta forma
         if (getArguments() != null) {
             numero = ConoceFragmentArgs.fromBundle(getArguments()).getNumero();
             ivCantidad.setImageResource(conoce.obtenerImagen(numero));
@@ -58,34 +61,28 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
                         , 1500);
             }
         }
-        final Handler handler = new Handler();
-        handler.postDelayed(
-                new Runnable() {
-                    @SuppressLint("ClickableViewAccessibility")
-                    @Override
-                    public void run() {
-                        btnAtras.setOnClickListener(v -> {
-                            conoce.finish(requireView(), numero, 0);
-//                                Navigation.findNavController(requireView()).navigate(R.id.action_conoceFragment_to_menuFragment);
-                        });
-
-                        sound.playSonidoCantidad(numero);
-                        ivCantidad.setOnTouchListener(ConoceFragment.this);
-                    }
-                }
-                , 300);
+        new Handler().postDelayed(() -> {
+            //Se agrega el evento de finalizar al boton atras
+            btnAtras.setOnClickListener(y -> conoce.finish(requireView(), numero, 0));
+            //Se reproduce el audio de la cantidad actual
+            sound.playSonidoCantidad(numero);
+            ivCantidad.setOnTouchListener(ConoceFragment.this);
+        }, 300);
     }
 
+    //El evento touch:
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 firstTouchX = event.getX();
                 break;
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP:     //Si se desliza el dedo hacia la izquierda se muestra el numero sigiente
                 if (firstTouchX > event.getX() + 150) { //MAYOR
                     numeroSiguiente();
 
+                    //Si se desliza el dedo hacia la derecha se muestra el numero anterior
                 } else if (firstTouchX < event.getX() - 150) { //MENOR
                     numeroAnterior();
                 }
@@ -94,28 +91,27 @@ public class ConoceFragment extends Fragment implements View.OnTouchListener {
         return true;
     }
 
+    //Se llama al Metodo IrA con el numero anterior al numero actual
     @SuppressLint("ClickableViewAccessibility")
     private void numeroAnterior() {
         if (numero > 1) {
-//            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_left_to_right);
             ivCantidad.setOnTouchListener(null);
             numero--;
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> irA(ANTERIOR), 350);
+            new Handler().postDelayed(() -> irA(ANTERIOR), 350);
         }
     }
 
+    //Se llama al Metodo IrA con el numero siguiente al numero actual
     @SuppressLint("ClickableViewAccessibility")
     private void numeroSiguiente() {
         if (numero < 20) {
-//            UIAnimation.translateIn_LeftToRight(requireContext(), ivCantidad, R.anim.translate_out_right_to_left);
             ivCantidad.setOnTouchListener(null);
             numero++;
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> irA(SIGUIENTE), 350);
+            new Handler().postDelayed(() -> irA(SIGUIENTE), 350);
         }
     }
 
+    //Vuelve a llamar a este fragment pero con otro numero como argumento
     private void irA(String accionAnterior) {
         ConoceFragmentDirections.ActionConoceFragmentSelf accion = ConoceFragmentDirections.actionConoceFragmentSelf();
         accion.setNumero(numero);

@@ -1,7 +1,6 @@
 package com.janus.aprendiendoacontar.juego;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.janus.aprendiendoacontar.BaseActivity;
@@ -28,6 +27,7 @@ public class CuantosHay implements Jugable {
     private int cantidadActual;
     private int contador = 0;
 
+    //Lista de imagenes de las tortugas
     private List<Integer> tortugas = Arrays.asList(
             R.drawable.cuantos_1_tortuga,
             R.drawable.cuantos_2_tortuga,
@@ -39,6 +39,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_8_tortuga
     );
 
+    //Lista de imagenes de los cangrejos
     private List<Integer> cangrejos = Arrays.asList(
             R.drawable.cuantos_1_cangrejo,
             R.drawable.cuantos_2_cangrejo,
@@ -50,6 +51,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_8_cangrejo
     );
 
+    //Lista de imagenes de los pulpos
     private List<Integer> pulposMorados = Arrays.asList(
             R.drawable.cuantos_1_pulpo_m,
             R.drawable.cuantos_2_pulpo_m,
@@ -61,6 +63,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_8_pulpo_m
     );
 
+    //Lista de imagenes de los pulpos
     private List<Integer> pulposAmarillos = Arrays.asList(
             R.drawable.cuantos_9_pulpo_a,
             R.drawable.cuantos_10_pulpo_a,
@@ -71,6 +74,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_15_pulpo_a
     );
 
+    //Lista de imagenes de los caballitos
     private List<Integer> caballitos = Arrays.asList(
             R.drawable.cuantos_9_caballitos,
             R.drawable.cuantos_10_caballitos,
@@ -81,6 +85,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_15_caballitos
     );
 
+    //Lista de imagenes de las estrellas
     private List<Integer> estrellas = Arrays.asList(
             R.drawable.cuantos_9_estrellas,
             R.drawable.cuantos_10_estrellas,
@@ -91,6 +96,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_15_estrellas
     );
 
+    //Lista de imagenes de los peces
     private List<Integer> pecesAm = Arrays.asList(
             R.drawable.cuantos_16_pez_am,
             R.drawable.cuantos_17_pez_am,
@@ -99,6 +105,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_20_pez_am
     );
 
+    //Lista de imagenes de los peces
     private List<Integer> pecesAz = Arrays.asList(
             R.drawable.cuantos_16_pez_az,
             R.drawable.cuantos_17_pez_az,
@@ -107,6 +114,7 @@ public class CuantosHay implements Jugable {
             R.drawable.cuantos_20_pez_az
     );
 
+    //Lista de imagenes de los peces
     private List<Integer> pecesGlobo = Arrays.asList(
             R.drawable.cuantos_16_pez_globo,
             R.drawable.cuantos_17_pez_globo,
@@ -122,17 +130,14 @@ public class CuantosHay implements Jugable {
 
         int cantidadTope = 20;
 
-        StringBuilder n = new StringBuilder();
+        //Se genera una lista de numeros del 1 al 20 pero desordenados
         int cantidad = (int) Math.floor(Math.random() * cantidadTope + 1);
         for (int i = 0; i < cantidadTope; i++) {
             while (cantidades.contains(cantidad)) {
                 cantidad = (int) Math.floor(Math.random() * (cantidadTope) + 1);
-//                cantidad = (int) Math.floor(new Random().nextDouble() * cantidadTope + 1);
             }
             cantidades.push(cantidad);
-            n.append("\n").append(cantidad);
         }
-        Log.d("jimmy", "\n " + n);
     }
 
     public int getCantidadActual() {
@@ -147,15 +152,11 @@ public class CuantosHay implements Jugable {
         contador++;
     }
 
+    //En este metodo se busca la imagen que se muestar en pantalla
+    //dependiendo de la cantidad actual
     public Animal obtenerAnimalitos() {
         int img = 0;
-
         cantidadActual = cantidades.get(contador);
-
-        String m = "\n contador: " + contador
-                + "\n cantidades: " + cantidades.size()
-                + "\n cantidad actial: " + cantidadActual;
-        Log.d("jimmy", m);
 
         if (cantidadActual >= 16)
             img = animalesChicos(cantidadActual - 16);
@@ -168,6 +169,8 @@ public class CuantosHay implements Jugable {
         return animal;
     }
 
+    //busca y obtiene una imagen aleatoria entre las imagenes de pulpo, tortuga y cangrejo
+    //dependiendo de la cantidad actual
     private int animalesGrandes(int cantidad) {
         int img = 0;
 
@@ -179,7 +182,6 @@ public class CuantosHay implements Jugable {
                 animal.setTipoAnimal(Animal.TORTUGA);
                 break;
             case 2:
-                Log.d("jimmy", "cantidad: " + cantidad + "\n cangrejos: " + cangrejos.size());
                 img = cangrejos.get(cantidad);
                 animal.setTipoAnimal(Animal.CANGREJO);
                 break;
@@ -192,6 +194,8 @@ public class CuantosHay implements Jugable {
         return img;
     }
 
+    //busca obtiene una imagen aleatoria entre las imagenes de pulpo, caballitos de mar y estrellas de mar
+    //dependiendo de la cantidad actual
     private int animaleMedianos(int cantidad) {
         int img = 0;
 
@@ -211,10 +215,11 @@ public class CuantosHay implements Jugable {
                 animal.setTipoAnimal(Animal.ESTRELLA);
                 break;
         }
-
         return img;
     }
 
+    //busca obtiene una imagen aleatoria entre las imagenes de peces
+    //dependiendo de la cantidad actual
     private int animalesChicos(int cantidad) {
         int img = 0;
 
@@ -234,7 +239,6 @@ public class CuantosHay implements Jugable {
                 animal.setTipoAnimal(Animal.PEZ);
                 break;
         }
-
         return img;
     }
 
@@ -252,6 +256,7 @@ public class CuantosHay implements Jugable {
         intentosIncorrectos++;
     }
 
+    //Finaliza el ejercicio y se guardan los datos en la base de datos
     @Override
     public void finish(View view, int correctos, int incorrectos) {
         DataBase db = DataBase.getInstance(context);
@@ -265,11 +270,13 @@ public class CuantosHay implements Jugable {
         showDialog(view, correctos, Consts.CUANTOS);
     }
 
+    //Muestra una ventana de dialogo al finalizar la actividad
     public void showDialog(View view, int correctos, String destino) {
         FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 20);
         dialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
     }
 
+    //Reproduce el audio de la pregunta dependiendo del tipo de animal que se muestre
     public void Preguntar(String tipoAnimal) {
         int idSonido = 0;
         switch (tipoAnimal) {

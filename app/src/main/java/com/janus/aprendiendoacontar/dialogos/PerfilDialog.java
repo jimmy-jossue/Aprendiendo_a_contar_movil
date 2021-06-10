@@ -48,6 +48,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         return accion;
     }
 
+    //Eventos click de los botones del dialogo
     @Override
     public void onClick(View view) {
         ImageView img = (ImageView) view;
@@ -66,6 +67,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         }
     }
 
+    //crea el dialogo
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         return dialog;
     }
 
+    //Se crea la instancia de AlertDialog (la pantalla de dialogo)
     private AlertDialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -84,6 +87,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         etNomUsuario = view.findViewById(R.id.et_nom_usuario);
         imgPerfilElegida = view.findViewById(R.id.img_perfil_elegida);
 
+        //se le agrega los eventos click a los botones
         btnPerfilOne = view.findViewById(R.id.btn_perfil_one);
         btnPerfilOne.setOnClickListener(this);
 
@@ -107,11 +111,14 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
             }
         });
 
+        //Si se abre el dialogo para crear un usuario no se podra cerrar hasta que se cree el usuario
+        //si se abre el dialogo para editar un usuario, si se podra cerrar el dialogo
         if (!getAccion().equals("Editar")) {
             setCancelable(false);
         } else {
             BaseActivity context = (BaseActivity) getActivity();
             if (context != null) {
+                //Se agregan los datos de usuario al Dialogo
                 imgPerfilElegida.setImageResource(context.getUsuario().imagen);
                 IdImagen = context.getUsuario().imagen;
                 etNomUsuario.setText(context.getUsuario().nombre);
@@ -121,6 +128,7 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         return builder.create();
     }
 
+    //se adjunta el dialogo a la actividad
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -132,6 +140,8 @@ public class PerfilDialog extends DialogFragment implements View.OnClickListener
         }
     }
 
+    //Esta interfaz se tiene que implementar donde se quiera mostrar el dialogo
+    // para obtener la respuesta de los botones
     public interface ActionDialogListener {
         void onPositiveClick(PerfilDialog dialog);
     }

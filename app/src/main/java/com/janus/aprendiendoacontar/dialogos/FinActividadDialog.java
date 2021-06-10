@@ -54,6 +54,7 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         return dialog;
     }
 
+    //Se crea la instancia de AlertDialog (la pantalla de dialogo)
     private AlertDialog createDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         new Sound(requireContext()).play(R.raw.win);
@@ -72,6 +73,7 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         tvCorrectos = view.findViewById(R.id.tvCorrectos);
         tvCorrectos.setText(String.valueOf(correctos));
 
+        //Se agregan los eventos click a los botones
         btnVolverMenu = view.findViewById(R.id.btnVolverMenu);
         btnVolverMenu.setOnClickListener(this);
 
@@ -82,6 +84,7 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         return builder.create();
     }
 
+    //se adjunta el dialogo a la actividad
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -93,6 +96,7 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         }
     }
 
+    //Evento clik de los botones
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -121,6 +125,8 @@ public class FinActividadDialog extends DialogFragment implements View.OnClickLi
         return porcionEstrellas;
     }
 
+    //Esta interfaz se tiene que implementar donde se quiera mostrar el dialogo
+    // para obtener la respuesta de los botones
     public interface ActionDialogListener {
         void onReintentarClick(FinActividadDialog dialog);
 

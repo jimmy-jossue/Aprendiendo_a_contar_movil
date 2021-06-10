@@ -1,7 +1,7 @@
 package com.janus.aprendiendoacontar.Utilities;
 
 import java.util.Stack;
-
+//Obtiene numeros aleatorios
 public class Numeros {
 
     public static Stack<Integer> obtenerListaDesordenada(int cantidadNumeros) {

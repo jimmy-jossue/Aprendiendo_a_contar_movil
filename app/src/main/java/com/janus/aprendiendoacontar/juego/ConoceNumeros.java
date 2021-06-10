@@ -30,6 +30,7 @@ public class ConoceNumeros implements Jugable {
 
     }
 
+    //Finaliza el ejercicio y guarda los datos en la base de datos
     @Override
     public void finish(View view, int correctos, int incorrectos) {
         DataBase db = DataBase.getInstance(context);
@@ -52,11 +53,13 @@ public class ConoceNumeros implements Jugable {
         showDialog(view, correctos, Consts.CONOCE);
     }
 
+    //Abre el dialogo al finalizar el ejercicio
     public void showDialog(View view, int correctos, String destino) {
         FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 20);
         dialog.show(((BaseActivity) context).getSupportFragmentManager(), null);
     }
 
+    //Dependiendo el numero que se indique se obtiene una imagen
     public int obtenerImagen(int numero) {
         int idImagen = 1;
 

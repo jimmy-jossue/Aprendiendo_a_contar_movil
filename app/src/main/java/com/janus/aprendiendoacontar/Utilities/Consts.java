@@ -1,5 +1,6 @@
 package com.janus.aprendiendoacontar.Utilities;
 
+//Constantes publicas de la aplicacions
 public class Consts {
     public static final String CONOCE = "Conoce los números";
     public static final String CUANTOS = "¿Cuántos hay?";

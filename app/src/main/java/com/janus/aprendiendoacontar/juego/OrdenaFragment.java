@@ -47,7 +47,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
             switch (dragEvent.getAction()) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
-                    if (!pocicionesGuardadas) {
+                    if (!pocicionesGuardadas) {     ////Se guarda la pocicion actual cada una de las burbujas
                         posicionesBurbujas[0] = new Point((int) tvNumero1.getX(), (int) tvNumero1.getY());
                         posicionesBurbujas[1] = new Point((int) tvNumero2.getX(), (int) tvNumero2.getY());
                         posicionesBurbujas[2] = new Point((int) tvNumero3.getX(), (int) tvNumero3.getY());
@@ -68,6 +68,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
                     view.invalidate();
                     View v = (View) dragEvent.getLocalState();
 
+                    //Entra si el "View" al que se suelta es alguna de las burbujas
                     if (view.getId() == tvNumero1.getId() || view.getId() == tvNumero2.getId() ||
                             view.getId() == tvNumero3.getId() || view.getId() == tvNumero4.getId() ||
                             view.getId() == tvNumero5.getId()) {
@@ -80,20 +81,18 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
                         int numeroArrastrado = Integer.parseInt(viewArrastrado.getText().toString());
                         int numeroDestino = Integer.parseInt(destination.getText().toString());
 
+                        //busca la posicion en el arreglo de numeros, los valores de las burbujas que se cambian de posicion
                         for (int i = 0; i < numeros.length; i++) {
                             if (numeroArrastrado == numeros[i]) posicionArrastrado = i;
                             if (numeroDestino == numeros[i]) posicionDestino = i;
                         }
 
+                        //Cambia la posicion en el arreglo, los valores de las burbujas que se cambian de posicion
                         numeros[posicionArrastrado] = numeroDestino;
                         numeros[posicionDestino] = numeroArrastrado;
 
+                        //se llama al metodo para intercambiar la posicion de la burbujas en la interfaz grafica
                         cambiarPosicion(viewArrastrado, destination);
-
-                        StringBuffer num = new StringBuffer();
-                        for (int n : numeros) {
-                            num.append(n + " - ");
-                        }
                     }
                     return true;
                 default:
@@ -108,6 +107,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         numeros = new int[5];
         posicionesBurbujas = new Point[5];
 
+        //Se inician los componentes de la interfaz y sus eventos
         btnBack = view.findViewById(R.id.btnAtrasOrdena);
         btnOk = view.findViewById(R.id.btnOkOrdena);
 
@@ -131,8 +131,9 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         tvNumero5.setOnDragListener(dragListener);
         tvNumero5.setOnLongClickListener(this);
 
-        int cantidadTope = 16;
+        int cantidadTope = 15;
 
+        //Se genera una lista de numeros del 1 al 20 ordenados aleatoriamente
         int cantidad = (int) Math.floor(Math.random() * cantidadTope + 1);
         for (int i = 0; i < cantidadTope; i++) {
             while (cantidades.contains(cantidad)) {
@@ -141,6 +142,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
             cantidades.push(cantidad);
         }
 
+        //Se guarda la pocicion actual cada una de las burbujas
         posicionesBurbujas[0] = new Point((int) tvNumero1.getX(), (int) tvNumero1.getY());
         posicionesBurbujas[1] = new Point((int) tvNumero2.getX(), (int) tvNumero2.getY());
         posicionesBurbujas[2] = new Point((int) tvNumero3.getX(), (int) tvNumero3.getY());
@@ -186,7 +188,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
             if (ordenados) correcto();
             else incorrecto();
 
-            if (contador < 15) new Handler().postDelayed(this::colocarNumeros, 500);
+            if (contador < 14) new Handler().postDelayed(this::colocarNumeros, 500);
             else finish(requireView(), correctos, incorrectos);
         }
     }
@@ -202,6 +204,8 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         return true;
     }
 
+    // se generan 5 numeros apartir del numero actual
+    // y se desordenan
     private void desordenarNumeros() {
         cantidadActual = cantidades.get(contador);
         Stack<Integer> posiciones = new Stack<Integer>();
@@ -249,6 +253,7 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         incorrectos++;
     }
 
+    //Finaliza el ejercicio y se guardan los datos en la base de datos
     @Override
     public void finish(View viewDestino, int correctos, int incorrectos) {
         DataBase db = DataBase.getInstance(requireContext());
@@ -262,11 +267,13 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         showDialog(viewDestino, correctos, Consts.ORDENA);
     }
 
+    //Muestra una ventana de dialogo al finalizar la actividad
     public void showDialog(View view, int correctos, String destino) {
         FinActividadDialog dialog = new FinActividadDialog(view, correctos, destino, 15);
         dialog.show(((BaseActivity) requireContext()).getSupportFragmentManager(), null);
     }
 
+    //se llama al metodo para intercambiar la posicion de la burbujas en la interfaz grafica
     private void cambiarPosicion(View view, View viewDestino) {
         btnOk.setEnabled(false);
         int duracion = 500;
@@ -274,12 +281,15 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         view.bringToFront();
         viewDestino.bringToFront();
 
+        //Toma dos elementos e intercambia sus pocisiones en X (de derecha a izquierda)
         desplazamiento = view.getX() - viewDestino.getX();
         view.animate().translationXBy(desplazamiento - (desplazamiento * 2)).setDuration(duracion).setStartDelay(0);
         viewDestino.animate().translationXBy(desplazamiento).setDuration(duracion).setStartDelay(0);
         new Handler().postDelayed(() -> btnOk.setEnabled(true), 510);
     }
 
+    // se colocan las burbujas en su posicion antes de ser movidas
+    // y se colocan los nuevos numeros ya desordenados
     private void colocarNumeros() {
         tvNumero1.setX(posicionesBurbujas[0].x);
         tvNumero1.setY(posicionesBurbujas[0].y);
@@ -309,5 +319,4 @@ public class OrdenaFragment extends BaseFragment implements View.OnClickListener
         UIAnimation.onScaleZoomIn(requireContext(), tvNumero4);
         UIAnimation.onScaleZoomIn(requireContext(), tvNumero5);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.janus.aprendiendoacontar.Models;
 
+// clase POJO para transportar los datos del usuario
 public class Usuario {
 
     private int id;

@@ -32,7 +32,7 @@ public class InicioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnJugar = view.findViewById(R.id.btnJugar);
-
+        // Se coloca el evento click al voton de jugar
         btnJugar.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_inicioFragment_to_menuFragment));
     }
 }

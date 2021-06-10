@@ -13,9 +13,9 @@ public class Sound {
         this.context = context;
     }
 
+    // se busca el audio que corresponde a la cantidad actual de la actividad conoce los numeros
     private static int buscarAudioNombreCantidad(int cantidad) {
         int idAudioCantiidad = R.raw.conoce_1;
-
         switch (cantidad) {
             case 1:
                 idAudioCantiidad = R.raw.conoce_1;
@@ -81,6 +81,7 @@ public class Sound {
         return idAudioCantiidad;
     }
 
+    // Busca un audio dependiendo de la cantidad que se ingrese
     public void playSonidoCantidad(int cantidad) {
         int idSonido = buscarAudioNombreCantidad(cantidad);
 
@@ -89,6 +90,7 @@ public class Sound {
         sound.start();
     }
 
+    //detiene el audio que se este reproduciendo
     public void stopPlaying() {
         if (sound != null) {
             sound.stop();
@@ -97,6 +99,7 @@ public class Sound {
         }
     }
 
+    //Reproduce el audio del id de recurso ingresado
     public void play(int idSonido) {
         stopPlaying();
         sound = MediaPlayer.create(context, idSonido);

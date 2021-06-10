@@ -17,6 +17,7 @@ public abstract class DataBase extends RoomDatabase {
 
     public abstract ActividadDao getActividad();
 
+    //Crea una instancia de la clase que se conecta con la base de datos de Room
     public static DataBase getInstance(Context context) {
         if (database == null) {
             database = Room.databaseBuilder(context, DataBase.class, DATABASE_NAME)

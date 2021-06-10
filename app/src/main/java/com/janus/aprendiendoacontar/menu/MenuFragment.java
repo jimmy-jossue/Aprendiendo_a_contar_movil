@@ -80,17 +80,21 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
             irAFragment(v, R.id.action_menuFragment_to_ordenaFragment);
     }
 
+    //Metodo para dirigirse a otra pantalla
     private void irAFragment(View view, int idAccionDestido) {
         UIAnimation.onScaleZoomIn(requireContext(), view);
         Navigation.findNavController(getView()).navigate(idAccionDestido);
     }
 
+    //Inicia una instancia de la base de datos
     private void setUpDatabase() {
         db = DataBase.getInstance(requireContext());
     }
 
+    //Se comprueba que el usuario ya haya iniciado sesion
     private void comprobarSesion() {
         String usuarioId = preferences.getString("idUsuario", "-1");
+        //Si hay sesion guardada se crea un objeto usuario con esa sesion
         if (!usuarioId.equals("-1")) {
             UsuarioDao usuarioDao = db.getUsuario();
             Usuario usuario = usuarioDao.obtenerporId(Integer.parseInt(usuarioId));
@@ -100,16 +104,19 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
 
             btnPerfil.setImageResource(getUsuario().imagen);
             setupMenu();
-        } else {
+
+        } else {    //Si no hay sesion iniciada se  abre el dialogo de crear usuario
             showDialog("guardar");
         }
     }
 
+    //Muestra una ventana de dialogo para crear un usuario
     public void showDialog(String accion) {
         DialogFragment dialog = new PerfilDialog(accion);
         dialog.show(getActivity().getSupportFragmentManager(), null);
     }
 
+    //Se obtiene la imagen de perfil del usuario y se coloca en el imageView
     @Override
     public void notifiar() {
         if (getUsuario() != null) {
@@ -117,19 +124,23 @@ public class MenuFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
+    //Se inician los botones para dirigirse a las diferentes actividades
     private void setupMenu() {
         int avancesConoce = preferences.getInt(Consts.KEY_CONOCE, 0);
         int avancesCuantos = preferences.getInt(Consts.KEY_CUANTOS, 0);
         int avancesArrastra = preferences.getInt(Consts.KEY_ARRASTRA, 0);
 
+        // Si ya se termino la actividad "Conoce los numeros" se desbloquea la actividad "Cuantos Hay"
         if (avancesConoce == 20) {
             btnCuantos.setImageResource(R.drawable.btn_menu_cuantos);
             btnCuantos.setEnabled(true);
 
+            // Si tiene 15 puntos en "Cuantos Hay" se desbloquea la actividad "Arrastra los elementos"
             if (avancesCuantos >= 15) {
                 btnArrastra.setImageResource(R.drawable.btn_menu_arrastra);
                 btnArrastra.setEnabled(true);
 
+                // Si tiene 15 puntos en "Arrastra los elementos" se desbloquea la actividad "Ordena los elementos"
                 if (avancesArrastra >= 10) {
                     btnOrdena.setImageResource(R.drawable.btn_menu_ordena);
                     btnOrdena.setEnabled(true);

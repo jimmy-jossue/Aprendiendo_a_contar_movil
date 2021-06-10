@@ -3,7 +3,7 @@ package com.janus.aprendiendoacontar.db;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+//Clase que representa la entidad "Actividad" de la base de datos o un DTO
 @Entity
 public class Actividad {
 
@@ -20,5 +20,3 @@ public class Actividad {
     @ColumnInfo(name = "ejerciciosIncorrectos")
     public int ejerciciosIncorrectos = 0;
 }
-
-

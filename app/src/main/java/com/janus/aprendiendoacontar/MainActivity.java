@@ -14,11 +14,12 @@ import com.janus.aprendiendoacontar.dialogos.PerfilDialog;
 import com.janus.aprendiendoacontar.juego.ConoceFragmentDirections;
 
 public class MainActivity extends BaseActivity implements PerfilDialog.ActionDialogListener, FinActividadDialog.ActionDialogListener {
-    SharedPreferences preferences;
 
+    SharedPreferences preferences;
 
     @Override
     public void initUI() {
+        // Enlazamos la app a las preferencias compartidas de android
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         preferences = getSharedPreferences(getString(R.string.key_preference_AC), Context.MODE_PRIVATE);
     }
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
         return R.layout.activity_main;
     }
 
+    //Evento que se desencadena cuando se presiona el boton "ok" de la pantalla de dialogo
     @Override
     public void onPositiveClick(PerfilDialog dialog) {
         Usuario usuario = new Usuario();
@@ -71,6 +73,7 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
         editor.apply();
     }
 
+    //Evento que se desencadena cuando se presiona el boton "reintentar" de la pantalla de dialogo
     @Override
     public void onReintentarClick(FinActividadDialog dialog) {
         String destino = dialog.obtenerDestino();
@@ -106,6 +109,7 @@ public class MainActivity extends BaseActivity implements PerfilDialog.ActionDia
         }
     }
 
+    //Evento que se desencadena cuando se presiona el boton "volver al menú" de la pantalla de dialogo
     @Override
     public void onVolverMenuClick(FinActividadDialog dialog) {
         int idDestino = 0;

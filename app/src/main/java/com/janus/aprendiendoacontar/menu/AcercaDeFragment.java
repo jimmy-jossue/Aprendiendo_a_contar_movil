@@ -25,6 +25,7 @@ public class AcercaDeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_acerca_de, container, false);
 
+        //Se coloca el Evento click a el boton atras para regresar al menu
         btnAtrasAcercaDe = view.findViewById(R.id.btnAtrasAcercaDe);
         btnAtrasAcercaDe.setOnClickListener(v ->
                 Navigation.findNavController(requireView()).navigate(R.id.action_acercaDeFragment_to_menuFragment));
