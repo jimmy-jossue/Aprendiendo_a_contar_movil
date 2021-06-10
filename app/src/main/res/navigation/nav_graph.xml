@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/inicioFragment"
-        android:name="com.janus.aprendiendoacontar.menu.InicioFragment"
+        android:name="com.cyti.aprendiendoacontar.menu.InicioFragment"
         android:label="fragment_inicio"
         tools:layout="@layout/fragment_inicio" >
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.janus.aprendiendoacontar.menu.MenuFragment"
+        android:name="com.cyti.aprendiendoacontar.menu.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/conoceFragment"
-        android:name="com.janus.aprendiendoacontar.juego.ConoceFragment"
+        android:name="com.cyti.aprendiendoacontar.juego.ConoceFragment"
         android:label="fragment_conoce"
         tools:layout="@layout/fragment_conoce" >
         <action
@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/cuantosFragment"
-        android:name="com.janus.aprendiendoacontar.juego.CuantosFragment"
+        android:name="com.cyti.aprendiendoacontar.juego.CuantosFragment"
         android:label="fragment_cuantos"
         tools:layout="@layout/fragment_cuantos" >
         <action
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/arrastraFragment"
-        android:name="com.janus.aprendiendoacontar.juego.ArrastraFragment"
+        android:name="com.cyti.aprendiendoacontar.juego.ArrastraFragment"
         android:label="fragment_arrastra"
         tools:layout="@layout/fragment_arrastra" >
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/ordenaFragment"
-        android:name="com.janus.aprendiendoacontar.juego.OrdenaFragment"
+        android:name="com.cyti.aprendiendoacontar.juego.OrdenaFragment"
         android:label="fragment_ordena"
         tools:layout="@layout/fragment_ordena">
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/progressFragment"
-        android:name="com.janus.aprendiendoacontar.menu.ProgressFragment"
+        android:name="com.cyti.aprendiendoacontar.menu.ProgressFragment"
         android:label="fragment_progress"
         tools:layout="@layout/fragment_progress">
         <action
@@ -123,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/acercaDeFragment"
-        android:name="com.janus.aprendiendoacontar.menu.AcercaDeFragment"
+        android:name="com.cyti.aprendiendoacontar.menu.AcercaDeFragment"
         android:label="fragment_acerca_de"
         tools:layout="@layout/fragment_acerca_de">
         <action
