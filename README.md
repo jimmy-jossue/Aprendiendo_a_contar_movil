@@ -35,6 +35,12 @@ Arrastra los elementos | actividad Ordena la secuencia
 
 <br />
 
+| Pantalla de fin de actividad | 
+| --- | 
+<img src="https://github.com/jgijonmedel/Aprendiendo_a_contar_movil/blob/master/art/AAC_fin_actividad.png" width="450"> | 
+
+<br />
+
 
 ## Built With 🛠
 - [Java](https://docs.oracle.com/en/java/) - Java es un lenguaje de programación que permite desarrollar e implementar aplicaciones Java en equipos de escritorio, servidores, dispositivos móviles, entre otros.
