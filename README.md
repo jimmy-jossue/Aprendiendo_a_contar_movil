@@ -1,4 +1,4 @@
-# Aprende a contar
+# Aprendiendo a contar
 Esta aplicación busca ayudar a los niños en etapa preescolar a que aprendan a contar del 1 al 20. 
 Para que los niños aprendan se crearán actividades
 Contiene cuatro actividades en las que el niño podrá interactuar con elementos que lo harán relacionar símbolos numéricos con su correspondiente cantidad
